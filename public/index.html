@@ -1,241 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Ruby on Rails: Welcome aboard</title>
-    <style type="text/css" media="screen">
-      body {
-        margin: 0;
-        margin-bottom: 25px;
-        padding: 0;
-        background-color: #f0f0f0;
-        font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
-        font-size: 13px;
-        color: #333;
-      }
+	<head>
+		<title>Quotify.it: Share moments with your frineds.</title>
+		<link media="screen" type="text/css" href="Assets/Site.css" rel="stylesheet" />
+		<link rel="stylesheet" href="http://launchrock.com/api/lr.api.0.2.plain.css">
+		<script src="http://launchrock.com/api/lr.api.0.5-min.js"></script>
+	</head>
+<body>
+		<div id="topbar" class="posabs" >
+			<img class="qatopleft" src="Assets/qa_topleft.png" />
+			<div id="tbright">
+				<a href="http://www.twitter.com/quotify_it">
+					<img src="Assets/tweet.png" />
+				</a>
+				<iframe id="likebutton" src="http://www.facebook.com/plugins/like.php?app_id=204051192970133&amp;href=http%3A%2F%2Fwww.facebook.com%2Fquotify.it&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+			</div>
+		</div>
+		<img class="posabs logo" src="Assets/logo.png" />
+		<div id="desc" class="posabs">
+			<div id="descleft">
+				<img class="quotiwhat" alt="Quotiwhat?" src="Assets/quotiwhat.png" />
+				<p class="bodyCopy">
+					Quotify.it takes the random things you and your friends say, and randomly says them back to you.
+					<br/><br/>
+					With Quotify.it, you enter things your friends say on our mobile app, save it along with a snapshot, and we send it back to all of you via a group e-mail chain later on... when you least expect it.
+					<br/><br/>
+					It could be two days, a week, even a month!  One day, you'll all wake up and find it right there in your inbox - a quote-of-the-day from your own life, shared with friends.
+				</p>
+				<img class="launchsummer" alt="Launching this summer" src="Assets/launchsummer.png" />
+			</div>
+			<div id="descright">
+							<iframe title="What is Quotify.it?" width="340" height="261" src="http://www.youtube.com/embed/p_acLQfVQ38?autoplay=0&repeat=0&rel=0" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+		<div class="posabs" id="signup">
+				<div id="launchRockWidget"></div>
+		</div>
 
-      h1 {
-        font-size: 28px;
-        color: #000;
-      }
+<script>
+$(document).ready(function(){
+    LR.lrInstance = new LrInstance('launchRockWidget',{
 
-      a  {color: #03c}
-      a:hover {
-        background-color: #03c;
-        color: white;
-        text-decoration: none;
-      }
+        tagLine: "",
+        description: "",
+        refCodeUrl: "http://quotify.it/?ref=",
+        lrDomain: "quotify.it",
+        apiKey: "e7152daae56880dceec4220b2a157c02",
+        inviteList: "Launching soon. Enter your email to join our invite list:"
+    });        
 
-
-      #page {
-        background-color: #f0f0f0;
-        width: 750px;
-        margin: 0;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      #content {
-        float: left;
-        background-color: white;
-        border: 3px solid #aaa;
-        border-top: none;
-        padding: 25px;
-        width: 500px;
-      }
-
-      #sidebar {
-        float: right;
-        width: 175px;
-      }
-
-      #footer {
-        clear: both;
-      }
-
-      #header, #about, #getting-started {
-        padding-left: 75px;
-        padding-right: 30px;
-      }
+    // Handles events related to signup form, form validations
+    // and submitting the form to the server:
+    LR.signupForm = new SignupForm({
+        secondaryPostLocation: ""
+    });
 
 
-      #header {
-        background-image: url("/assets/rails.png");
-        background-repeat: no-repeat;
-        background-position: top left;
-        height: 64px;
-      }
-      #header h1, #header h2 {margin: 0}
-      #header h2 {
-        color: #888;
-        font-weight: normal;
-        font-size: 16px;
-      }
+    // Handles rendering the post submit content:
+    LR.postSubmit = new PostSignupForm('pagesubmit',{
+        twitterHandle: "Quotify_it",
+        twitterMessage: "Quotify.it is launching soon and I'm one of the first in line! Join me. #launch",
+        newUserHeaderText: "Thanks! We'll let you know as soon as we launch so you can start Quotifying.",
+        newUserParagraphText: "<br/><br/>Share with your friends!",
+        newUserParagraphText3: "Or copy and paste the following link to share wherever you want!",
+        returningUserHeaderText: "Welcome Back!",
+        returningUserParagraphText: "<br/><br/>Share with your friends!",
+        returningUserParagraphText3: "Or copy and paste the following link to share wherever you want!",
+        statsPreText: "Your live stats: ",
+        footerLinks: "<a href='http://twitter.com/Quotify_it'>Follow Us on Twitter</a>"
+,showHeaderText: true,
+showParagraphText: true,
+showStats: true,
+showShareButtons: true,
+showFooterLinks: true    });
 
 
-      #about h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
+});
 
-      #about-content {
-        background-color: #ffd;
-        border: 1px solid #fc0;
-        margin-left: -55px;
-        margin-right: -10px;
-      }
-      #about-content table {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 11px;
-        border-collapse: collapse;
-      }
-      #about-content td {
-        padding: 10px;
-        padding-top: 3px;
-        padding-bottom: 3px;
-      }
-      #about-content td.name  {color: #555}
-      #about-content td.value {color: #000}
-
-      #about-content ul {
-        padding: 0;
-        list-style-type: none;
-      }
-
-      #about-content.failure {
-        background-color: #fcc;
-        border: 1px solid #f00;
-      }
-      #about-content.failure p {
-        margin: 0;
-        padding: 10px;
-      }
-
-
-      #getting-started {
-        border-top: 1px solid #ccc;
-        margin-top: 25px;
-        padding-top: 15px;
-      }
-      #getting-started h1 {
-        margin: 0;
-        font-size: 20px;
-      }
-      #getting-started h2 {
-        margin: 0;
-        font-size: 14px;
-        font-weight: normal;
-        color: #333;
-        margin-bottom: 25px;
-      }
-      #getting-started ol {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #getting-started li {
-        font-size: 18px;
-        color: #888;
-        margin-bottom: 25px;
-      }
-      #getting-started li h2 {
-        margin: 0;
-        font-weight: normal;
-        font-size: 18px;
-        color: #333;
-      }
-      #getting-started li p {
-        color: #555;
-        font-size: 13px;
-      }
-
-
-      #sidebar ul {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #sidebar ul h3 {
-        margin-top: 25px;
-        font-size: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-      #sidebar li {
-        list-style-type: none;
-      }
-      #sidebar ul.links li {
-        margin-bottom: 5px;
-      }
-
-      .filename {
-        font-style: italic;
-      }
-    </style>
-    <script type="text/javascript">
-      function about() {
-        info = document.getElementById('about-content');
-        if (window.XMLHttpRequest)
-          { xhr = new XMLHttpRequest(); }
-        else
-          { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-        xhr.open("GET","rails/info/properties",false);
-        xhr.send("");
-        info.innerHTML = xhr.responseText;
-        info.style.display = 'block'
-      }
     </script>
-  </head>
-  <body>
-    <div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Browse the documentation</h3>
-            <ul class="links">
-              <li><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-              <li><a href="http://api.rubyonrails.org/">Rails API</a></li>
-              <li><a href="http://www.ruby-doc.org/core/">Ruby core</a></li>
-              <li><a href="http://www.ruby-doc.org/stdlib/">Ruby standard library</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
 
-      <div id="content">
-        <div id="header">
-          <h1>Welcome aboard</h1>
-          <h2>You&rsquo;re riding Ruby on Rails!</h2>
-        </div>
+<script type="text/javascript">
 
-        <div id="about">
-          <h3><a href="rails/info/properties" onclick="about(); return false">About your application&rsquo;s environment</a></h3>
-          <div id="about-content" style="display: none"></div>
-        </div>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22784176-1']);
+  _gaq.push(['_trackPageview']);
 
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get rolling:</h2>
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-          <ol>
-            <li>
-              <h2>Use <code>rails generate</code> to create your models and controllers</h2>
-              <p>To see all available options, run it without parameters.</p>
-            </li>
-
-            <li>
-              <h2>Set up a default route and remove <span class="filename">public/index.html</span></h2>
-              <p>Routes are set up in <span class="filename">config/routes.rb</span>.</p>
-            </li>
-
-            <li>
-              <h2>Create your database</h2>
-              <p>Run <code>rake db:create</code> to create your database. If you're not using SQLite (the default), edit <span class="filename">config/database.yml</span> with your username and password.</p>
-            </li>
-          </ol>
-        </div>
-      </div>
-
-      <div id="footer">&nbsp;</div>
-    </div>
-  </body>
+</script>
+</body>
 </html>

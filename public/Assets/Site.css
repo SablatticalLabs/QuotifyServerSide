@@ -1,0 +1,76 @@
+body {
+	background: url(http://quotify.it/Assets/back.png) #221e1f 0px 0px repeat;
+	color: #fff;
+	font: Helvetica;
+	font-family:Helvetica,Georgia;
+	text-align:center;
+
+}
+
+.posabs {
+	position: absolute;
+}
+.topbar {
+
+}
+.logo {
+	margin: auto 0px;
+	text-align: center;
+	left: 430px;
+	top:50px;
+}
+.quotiwhat {
+
+}
+.launchsummer {
+
+}
+#desc {
+	width: 600px;
+	margin: auto;
+	top: 250px;
+	left: 200px;
+	}
+
+p.bodyCopy {
+	width: 310px;
+	font: 12px Georgia;
+	font-weight: normal;
+	padding-left: 20px;
+}
+#descleft,#descright {
+	width: 240px;
+	display: inline;
+	text-align: left;
+}
+#descleft {
+	float: left;
+}
+#descright {
+	float: right;
+	padding-top: 20px;
+}
+	
+#topbar {
+	width: 1000px;
+	text-align: left;
+}
+div#signup {
+	top: 520px;
+	left: 270px;
+}
+#tbright {
+	float: right;
+	width: 200px;
+}
+#tbright a, 
+#tbright a img{
+	border: none;
+	text-decoration: none;
+	border: 0 none;
+
+}
+#likebutton {
+	display: inline;
+	width: 100px !important;
+}
