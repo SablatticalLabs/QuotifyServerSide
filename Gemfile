@@ -36,5 +36,4 @@ group :test do
 end
 
 gem 'therubyracer'
-gem 'rake', '0.8.7'
 
