@@ -11,6 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20111030205300) do
+
+  create_table "quotes", :force => true do |t|
+    t.string   "quote_text"
+    t.datetime "quote_time"
+    t.string   "speaker_user_id"
+    t.string   "quotifier_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email_address"
+    t.string   "phone_number"
+    t.string   "contact_method"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

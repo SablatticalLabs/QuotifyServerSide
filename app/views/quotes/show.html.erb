@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Quote text:</b>
+  <%= @quote.quote_text %>
+</p>
+
+<p>
+  <b>Quote time:</b>
+  <%= @quote.quote_time %>
+</p>
+
+<p>
+  <b>Quote speaker:</b>
+  <%= @quote.speaker.name %>
+</p>
+
+<p>
+  <b>Quote quotifier</b>
+  <%= @quote.quotifier.name %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_quote_path(@quote) %> |
+<%= link_to 'Back', quotes_path %>

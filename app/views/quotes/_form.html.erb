@@ -1,0 +1,36 @@
+<%= form_for(@quote) do |f| %>
+  <% if @quote.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
+
+      <ul>
+      <% @quote.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :quote_text %><br />
+    <%= f.text_field :quote_text %>
+  </div>
+  <div class="field">
+    <%= f.label :quote_time %><br />
+    <%= f.datetime_select :quote_time %>
+  </div>
+  <div class="field">
+    <%= f.label :speaker %><br />
+  <!--  <%= f.collection_select(:speaker_user_id, User.all, :id, :name) %>-->
+    <%= f.text_field :speaker[:name] %>
+  </div>
+  <div class="field">
+    <%= f.label :quotifier %><br/>
+  <!--  <%= f.collection_select(:quotifier_user_id, User.all, :id, :name) %>-->
+    <%= f.text_field :quotifier[:name] %>
+   
+  </div> 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
