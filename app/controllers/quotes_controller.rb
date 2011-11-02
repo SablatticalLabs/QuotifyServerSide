@@ -25,6 +25,8 @@ class QuotesController < ApplicationController
   # GET /quotes/new.json
   def new
     @quote = Quote.new
+    @quote.quotifier = User.new
+    @quote.speaker = User.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,12 +44,11 @@ class QuotesController < ApplicationController
   def create
 
     #Look up the speaker and quotifier by their name - if they don't exist yet, then create them anew
-    speaker_attrs = params[:quote][:speaker]
-    speaker = User.find_or_create_by_name(speaker_attrs)
-    quotifier_attrs = params[:quote][:quotifier]
-    quotifier = User.find_or_create_by_name(quotifier_attrs)
+    speaker = User.find_or_create_by_name(params[:quote][:speaker][:name]) unless !params[:quote][:speaker] 
+    quotifier = User.find_or_create_by_name(params[:quote][:quotifier][:name]) unless !params[:quote][:quotifier]
+    quote_time = params[:quote][:quote_time] || Time.now
    
-    @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => params[:quote][:quote_time], :speaker => speaker, :quotifier => quotifier)
+    @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier)
 
     respond_to do |format|
       if @quote.save

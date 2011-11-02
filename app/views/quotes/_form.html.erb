@@ -15,19 +15,20 @@
     <%= f.label :quote_text %><br />
     <%= f.text_field :quote_text %>
   </div>
+
   <div class="field">
-    <%= f.label :quote_time %><br />
-    <%= f.datetime_select :quote_time %>
+  	<%= f.fields_for :speaker, @quote.speaker do |s| %>
+      <%= s.label :speaker %><br />
+      <!--  <%= f.collection_select(:speaker_user_id, User.all, :id, :name) %>-->
+      <%= s.text_field :name %>
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :speaker %><br />
-  <!--  <%= f.collection_select(:speaker_user_id, User.all, :id, :name) %>-->
-    <%= f.text_field :speaker[:name] %>
-  </div>
-  <div class="field">
-    <%= f.label :quotifier %><br/>
-  <!--  <%= f.collection_select(:quotifier_user_id, User.all, :id, :name) %>-->
-    <%= f.text_field :quotifier[:name] %>
+  	<%= f.fields_for :quotifier, @quote.quotifier do |q| %>
+      <%= q.label :quotifier %><br/>
+      <!--  <%= f.collection_select(:quotifier_user_id, User.all, :id, :name) %>-->
+      <%= q.text_field :name %>
+    <% end %>
    
   </div> 
   <div class="actions">

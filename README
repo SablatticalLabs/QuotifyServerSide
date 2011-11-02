@@ -1,1 +1,1 @@
- curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"quote":{"quote_text":"json test", "speaker":{"name":"rob"}, "quotifier":{"name":"harry"}}}' http://localhost:3000/quotes.json | more
+curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"quote":{"quote_text":"I am the great cornholio!", "speaker":{"name":"beavis", "email_address":"beavis@mtv.com"}, "quotifier":{"name":"butthead", "phone_number":"2125556969"}}}' http://localhost:3000/quotes.json
