@@ -43,12 +43,14 @@ class QuotesController < ApplicationController
   # POST /quotes.json
   def create
 
-    #Look up the speaker and quotifier by their name - if they don't exist yet, then create them anew
-    speaker = User.find_or_create_by_name(params[:quote][:speaker][:name]) unless !params[:quote][:speaker] 
-    quotifier = User.find_or_create_by_name(params[:quote][:quotifier][:name]) unless !params[:quote][:quotifier]
-    quote_time = params[:quote][:quote_time] || Time.now
-   
-    @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier)
+    #Look up the speaker, quotifier, and witnesses - if they don't exist yet, then create them anew
+    speaker = User.find_or_create(params[:quote][:speaker])  
+    quotifier = User.find_or_create(params[:quote][:quotifier]) 
+    witnesses = params[:quote][:witnesses].map {|witness| User.find_or_create(witness)} if params[:quote][:witnesses] 
+    
+    quote_time = params[:quote][:time] || Time.now
+    @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier, 
+                       :witnesses => witnesses,:location => params[:quote][:location], :coordinate=>params[:quote][:coordinate])
 
     respond_to do |format|
       if @quote.save
