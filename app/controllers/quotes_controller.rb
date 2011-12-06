@@ -50,7 +50,7 @@ class QuotesController < ApplicationController
     
     quote_time = params[:quote][:time] || Time.now
     @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier, 
-                       :witnesses => witnesses,:location => params[:quote][:location], :coordinate=>params[:quote][:coordinate])
+                       :witnesses => (witnesses || []),:location => params[:quote][:location], :coordinate=>params[:quote][:coordinate])
 
     respond_to do |format|
       if @quote.save

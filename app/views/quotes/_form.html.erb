@@ -17,17 +17,21 @@
   </div>
 
   <div class="field">
-  	<%= f.fields_for :speaker, @quote.speaker do |s| %>
-      <%= s.label :speaker %><br />
+    <%= f.fields_for :speaker, @quote.speaker do |s| %>
+      <%= s.label "Speaker Name, Email, and Phone" %><br />
       <!--  <%= f.collection_select(:speaker_user_id, User.all, :id, :name) %>-->
       <%= s.text_field :name %>
+      <%= s.text_field :email %>
+      <%= s.text_field :phone %> 
     <% end %>
   </div>
   <div class="field">
-  	<%= f.fields_for :quotifier, @quote.quotifier do |q| %>
-      <%= q.label :quotifier %><br/>
+    <%= f.fields_for :quotifier, @quote.quotifier do |q| %>
+      <%= q.label "Quotifier Name, Email, and Phone" %><br/>
       <!--  <%= f.collection_select(:quotifier_user_id, User.all, :id, :name) %>-->
       <%= q.text_field :name %>
+      <%= q.text_field :email %>
+      <%= q.text_field :phone %>
     <% end %>
    
   </div> 

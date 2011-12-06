@@ -20,6 +20,12 @@
   <%= @quote.quotifier.name %>
 </p>
 
+<p>
+  <b>Quote witnesses</b><br/>
+  <% @quote.witnesses.each do |witness| %> 
+    <%= "#{witness[:name]} (#{witness[:email]},#{witness[:phone]})" %><br/>
+  <% end %>
+
 
 
 <%= link_to 'Edit', edit_quote_path(@quote) %> |
