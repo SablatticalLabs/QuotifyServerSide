@@ -1,4 +1,7 @@
 class QuotesController < ApplicationController
+  
+  respond_to :html, :json
+  
   # GET /quotes
   # GET /quotes.json
   def index
@@ -42,7 +45,6 @@ class QuotesController < ApplicationController
   # POST /quotes
   # POST /quotes.json
   def create
-
     #Look up the speaker, quotifier, and witnesses - if they don't exist yet, then create them anew
     speaker = User.find_or_create(params[:quote][:speaker])  
     quotifier = User.find_or_create(params[:quote][:quotifier]) 
@@ -52,15 +54,8 @@ class QuotesController < ApplicationController
     @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier, 
                        :witnesses => (witnesses || []),:location => params[:quote][:location], :coordinate=>params[:quote][:coordinate])
 
-    respond_to do |format|
-      if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was successfully created.' }
-        format.json { render json: @quote, status: :created, location: @quote }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @quote.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Quote was successfully created' if @quote.save
+    respond_with (@quote)
   end
 
   # PUT /quotes/1
