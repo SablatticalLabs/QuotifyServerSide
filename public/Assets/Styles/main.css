@@ -17,6 +17,7 @@ body {
 	width: 750px;
 	margin-bottom: 100px;
 }
+
 #main #head{
 	border-radius: 0.5em 0.5em 0em 0em;
 	-webkit-border-radius: 0.5em 0.5em 0em 0em;
@@ -24,16 +25,63 @@ body {
 	background-color: #99b4bf;
 	height: 250px;
 }
+
+#main #head #login{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	background-color: #515151;
+}
+
+#main #head #login p{
+	color: #ababab;
+}
+
+#main #head #logo{
+	position: absolute;
+	top: 1em;
+	left: 50%;
+	margin-left: -150px;
+	color: #a2a2a2;
+}
+
 #main #subhead{
 	background-color: #c8d7de;
 	height: 175px;
+	text-align: right;
+	padding: 30px 320px 0px 20px
 }
+
+#main #subhead img{
+	float: right;
+}
+
+#main #subhead em{
+	color: #3b3b3b;
+}
+
 #main #core{
 	background-color: white;
 	height: 400px;
 }
+#main #core #why{
+	background: url( 'Assets/Images/icons.png') no-repeat left;
+	color: #a2a2a2;
+	text-align: left;
+	list-style: none;
+	width: 420px;
+}
+#main #core #why li{
+	padding: 6px 3px;
+}
+#main #core #why em{
+	color: #3b3b3b;
+}
+
 #main #iphone{
 	position: absolute;
+	top: 18em;
+	right: 1em;
 }
 #main #footer{
 	border-radius: 0em 0em 0.5em 0.5em;
@@ -41,4 +89,47 @@ body {
 	-moz-border-radius: 0em 0em 0.5em 0.5em;
 	background-color: #424242;
 	height: 600px;
+}
+
+#main #footer #samplequotes{
+	list-style: none;
+	text-align: left;
+}
+#main #footer #samplequotes li{
+	float: left;
+	width: 25%;
+	padding: 0;
+}
+#main #footer #samplequotes li .who{
+}
+#main #footer #samplequotes li .thequote{
+}
+span.quote{
+	color: #c76262;
+}
+
+
+#main #footer #team{
+	display: block;
+	clear: left;
+	text-align: left;
+	width: 460px;
+	height: 300px;
+	margin: 0px auto;
+}
+
+#main #footer #teammembers{
+}
+#main #footer #team li{
+	list-style: none;
+	padding: 10px 10px 10px 20px;
+	width: 200px;
+	height: 50px;
+}
+#main #footer #team li img {
+	float: left;
+	padding-right: 5px;
+}
+#main #footer #team li a {
+	color: #cf6e6e;
 }
