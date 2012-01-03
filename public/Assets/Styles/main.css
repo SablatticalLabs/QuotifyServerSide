@@ -2,7 +2,7 @@ body {
 	background-color: #ececec;
 	color: #fff;
 	font: Helvetica;
-	font-family:Helvetica,Georgia;
+	font-family:Helvetica;
 	text-align:center;
 
 }
@@ -47,9 +47,18 @@ body {
 
 #main #subhead{
 	background-color: #c8d7de;
+	color: #7e7e7e;
 	height: 175px;
 	text-align: right;
 	padding: 30px 320px 0px 20px
+}
+
+#main #subhead .download{
+	color: black;
+}
+
+#main #subhead .download p{
+	color: #7e7e7e;
 }
 
 #main #subhead img{
@@ -58,6 +67,7 @@ body {
 
 #main #subhead em{
 	color: #3b3b3b;
+	font-weight: bold;
 }
 
 #main #core{
@@ -69,6 +79,8 @@ body {
 	color: #a2a2a2;
 	text-align: left;
 	list-style: none;
+	margin-top: 10px;
+	margin-left: 10px;
 	width: 420px;
 }
 #main #core #why li{
@@ -89,9 +101,11 @@ body {
 	-moz-border-radius: 0em 0em 0.5em 0.5em;
 	background-color: #424242;
 	height: 600px;
+	margin-top: -25px;
 }
 
 #main #footer #samplequotes{
+	margin-top: 20px;
 	list-style: none;
 	text-align: left;
 }
@@ -99,37 +113,64 @@ body {
 	float: left;
 	width: 25%;
 	padding: 0;
+	text-align: center;
 }
 #main #footer #samplequotes li .who{
+	color: #848484;
+	font-style: italic;
 }
 #main #footer #samplequotes li .thequote{
+	margin: 2px 4px;
 }
 span.quote{
 	color: #c76262;
+	font-size: xx-large;
+	line-height: 1em;
 }
 
-
+#main #footer #team h4{
+	font-weight: normal;
+}
 #main #footer #team{
+	border: #4e4e4e 1px solid;
 	display: block;
+	background-color: #393939;
 	clear: left;
 	text-align: left;
 	width: 460px;
-	height: 300px;
-	margin: 0px auto;
+	height: 350px;
+	margin: 15px auto;
+	text-align: center;
+	border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
 }
 
 #main #footer #teammembers{
 }
-#main #footer #team li{
-	list-style: none;
+#main #footer #team .member{
 	padding: 10px 10px 10px 20px;
 	width: 200px;
 	height: 50px;
+	text-align: left;
+	float: left;
 }
-#main #footer #team li img {
+#main #footer #team .member img {
 	float: left;
 	padding-right: 5px;
 }
-#main #footer #team li a {
+#main #footer #team .member a {
 	color: #cf6e6e;
+}
+
+/* common */
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+.clear{
+	clear: both;
 }
