@@ -1,0 +1,2 @@
+module QuoteImagesHelper
+end

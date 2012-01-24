@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205224705) do
+ActiveRecord::Schema.define(:version => 20120124004115) do
+
+  create_table "quote_images", :force => true do |t|
+    t.integer  "quote_id"
+    t.string   "name"
+    t.string   "url"
+    t.binary   "image_binary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "quote_witness_users", :force => true do |t|
     t.integer  "quote_id"
