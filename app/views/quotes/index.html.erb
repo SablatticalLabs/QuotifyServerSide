@@ -5,6 +5,7 @@
     <th>ID</th>
     <th>Quote text</th>
     <th>Quote time</th>
+    <th>Images</th>
     <th>Speaker</th>
     <th>Quotifier</th>
     <th>Witnesses</th>
@@ -20,6 +21,7 @@
     <td><%= quote.id %></td>
     <td><%= quote.quote_text %></td>
     <td><%= quote.quote_time %></td>
+    <td><%= link_to quote.quote_images.count, quote_quote_images_path(quote) %></td>
     <td><%= "#{quote.speaker.name} (#{quote.speaker.email},#{quote.speaker.phone})" %></td>
     <td><%= "#{quote.quotifier.name} (#{quote.quotifier.email},#{quote.quotifier.phone})" %></td>
     <td><%= quote.witnesses.inject("") {|memo, cur| "#{memo}; #{cur[:name]} (#{cur[:email]},#{cur[:phone]})" } [2..5000] %>

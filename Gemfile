@@ -38,3 +38,4 @@ end
 #We only seem to need this on Linux, not on Windows dev environmment
 gem 'therubyracer', :platform => :ruby
 
+gem 'httparty'

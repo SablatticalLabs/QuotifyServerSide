@@ -2,4 +2,6 @@
 
 <h2><%= @quote_image.name %></h2>
 
+<%= image_tag "/quote_images/#{@quote_image.file_name}" %>
+
 <%= link_to 'Back', quote_quote_images_path(@quote) %>
