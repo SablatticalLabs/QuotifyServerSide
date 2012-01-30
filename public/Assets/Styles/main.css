@@ -1,0 +1,206 @@
+body {
+	background-color: #ececec;
+	color: #fff;
+	font: Helvetica;
+	font-family:Helvetica;
+	text-align:center;
+
+}
+#main{
+	background-clip:border;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	margin: 0px auto;
+	position: relative;
+	top: 100px;
+	width: 750px;
+	margin-bottom: 100px;
+}
+
+#main #head{
+	border-radius: 0.5em 0.5em 0em 0em;
+	-webkit-border-radius: 0.5em 0.5em 0em 0em;
+	-moz-border-radius: 0.5em 0.5em 0em 0em;
+	background-color: #99b4bf;
+	height: 250px;
+}
+
+#main #head #login{
+	display: none;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	background-color: #515151;
+}
+
+#main #head #login p{
+	color: #ababab;
+}
+
+#main #head #logo{
+	position: absolute;
+	top: 0em;
+	left: 50%;
+	margin-left: -375px;
+	color: #a2a2a2;
+	height: 250px;
+	overflow-y: hidden;
+}
+
+#main #subhead{
+	background-color: #c8d7de;
+	background: url( 'http://www.quotify.it/Assets/Images/CTAback.png') no-repeat left;
+	color: #7e7e7e;
+	height: 137px;
+	text-align: right;
+	padding: 30px 320px 0px 20px
+}
+#main #subhead .desc{
+	font-size: larger;
+	text-shadow: white 3px 1px 1px;	
+
+}
+#main #subhead .download{
+	color: black;
+	font-weight: bold;
+	text-shadow: white 3px 1px 1px;	
+}
+
+#main #subhead .download p{
+	color: #7e7e7e;
+}
+
+#main #subhead img{
+	float: right;
+}
+
+#main #subhead em{
+	color: #3b3b3b;
+	font-weight: bold;
+}
+
+#main #core{
+	background-color: white;
+	height: 400px;
+}
+#main #core #why{
+	background: url( 'http://www.quotify.it/Assets/Images/icons.png') no-repeat left;
+	color: #a2a2a2;
+	text-align: left;
+	list-style: none;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 420px;
+}
+#main #core #why li{
+	padding: 6px 3px;
+}
+#main #core #why em{
+	color: #3b3b3b;
+}
+
+#main #iphone{
+	position: absolute;
+	top: 14em;
+	cursor: pointer;
+	right: -3em;
+}
+#main #footer{
+	border-radius: 0em 0em 0.5em 0.5em;
+	-webkit-border-radius: 0em 0em 0.5em 0.5em;
+	-moz-border-radius: 0em 0em 0.5em 0.5em;
+	background-color: #424242;
+	height: 600px;
+	margin-top: -25px;
+}
+
+#main #footer #samplequotes{
+	margin-top: 20px;
+	list-style: none;
+	text-align: left;
+}
+#main #footer #samplequotes li{
+	float: left;
+	width: 25%;
+	padding: 0;
+	text-align: center;
+}
+#main #footer #samplequotes li .who{
+	color: #848484;
+	font-style: italic;
+}
+#main #footer #samplequotes li .thequote{
+	margin: 2px 4px;
+}
+span.quote{
+	color: #c76262;
+	font-size: xx-large;
+	line-height: 1em;
+}
+
+#main #footer #team h4{
+	margin-top: -55px;
+	font-weight: normal;
+}
+#main #footer #team{
+	border: #4e4e4e 1px solid;
+	display: block;
+	background-color: #393939;
+	clear: left;
+	text-align: left;
+	width: 460px;
+	height: 350px;
+	margin: 75px auto;
+	text-align: center;
+	border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+#main #footer #bubbleend{
+	margin-top: -43px;
+	margin-right: -200px;
+}
+
+#main #footer #teammembers{
+}
+#main #footer #team .member{
+	padding: 10px 10px 10px 20px;
+	width: 200px;
+	height: 50px;
+	text-align: left;
+	float: left;
+}
+#main #footer #team .member img {
+	float: left;
+	padding-right: 5px;
+}
+#main #footer #team .member a {
+	color: #cf6e6e;
+}
+
+/* common */
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+.clear{
+	clear: both;
+}
+
+#simplemodal-overlay {
+	background-color: black;
+	opacity: 0.5;
+}
+
+#basic-modal-content{
+	border-radius: 0.6em;
+	-webkit-border-radius: 0.6em;
+	-moz-border-radius: 0.6em;
+	display: none;
+	background-color: black;
+	padding: 2em;
+}
