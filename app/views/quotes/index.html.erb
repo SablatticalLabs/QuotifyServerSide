@@ -11,6 +11,9 @@
     <th>Witnesses</th>
     <th>Location</th>
     <th>Coordinates</th>
+    <th>Email Scheduled Time</th>
+    <th>Email Sent?</th>
+    <th>Send Mail Now<th>
     <th></th>
     <th></th>
     <th></th>
@@ -27,6 +30,9 @@
     <td><%= quote.witnesses.inject("") {|memo, cur| "#{memo}; #{cur[:name]} (#{cur[:email]},#{cur[:phone]})" } [2..5000] %>
     <td><%= quote.location %></td>
     <td><%= quote.coordinate %></td>
+    <td><%= quote.email_send_scheduled_time %></td>
+    <td><%= quote.email_sent_flag %> </td>
+    <td><%= link_to 'Send Email Now', quote_send_email_now_path(quote) %></td>
     <td><%= link_to 'Show', quote %></td>
     <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
     <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>

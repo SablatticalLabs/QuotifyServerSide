@@ -17,12 +17,22 @@
   </div>
 
   <div class="field">
+    <%= f.label "Email Send Scheduled Date" %>
+    <%= f.datetime_select :email_send_scheduled_time %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Email Sent?" %>
+    <%= f.check_box :email_sent_flag %>
+  </div>
+
+  <div class="field">
     <%= f.fields_for :speaker, @quote.speaker do |s| %>
       <%= s.label "Speaker Name, Email, and Phone" %><br />
       <!--  <%= f.collection_select(:speaker_user_id, User.all, :id, :name) %>-->
       <%= s.text_field :name %>
       <%= s.text_field :email %>
-      <%= s.text_field :phone %> 
+      <%= s.text_field :phone %>
     <% end %>
   </div>
   <div class="field">

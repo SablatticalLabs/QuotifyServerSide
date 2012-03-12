@@ -3,6 +3,7 @@ Quotify::Application.routes.draw do
 
   resources :quotes do 
     resources :quote_images, :only => [:index, :show, :new, :create]
+    get 'send_email_now'
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
