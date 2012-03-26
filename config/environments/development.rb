@@ -27,4 +27,9 @@ Quotify::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  #Display errors if emails dont send
+  config.action_mailer.raise_delivery_errors = true
+
+
 end
