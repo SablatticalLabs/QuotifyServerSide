@@ -24,7 +24,7 @@
     <td><%= quote.id %></td>
     <td><%= quote.quote_text %></td>
     <td><%= quote.quote_time %></td>
-    <td><%= link_to quote.quote_images.count, quote_quote_images_path(quote) %></td>
+    <td><%= link_to quote.quote_images.count, admin_quote_quote_images_path(quote) %></td>
     <td><%= "#{quote.speaker.name} (#{quote.speaker.email},#{quote.speaker.phone})" %></td>
     <td><%= "#{quote.quotifier.name} (#{quote.quotifier.email},#{quote.quotifier.phone})" %></td>
     <td><%= quote.witnesses.inject("") {|memo, cur| "#{memo}; #{cur[:name]} (#{cur[:email]},#{cur[:phone]})" } [2..5000] %>
@@ -32,14 +32,13 @@
     <td><%= quote.coordinate %></td>
     <td><%= quote.email_send_scheduled_time %></td>
     <td><%= quote.email_sent_flag %> </td>
-    <td><%= link_to 'Send Email Now', quote_send_email_now_path(quote) %></td>
+    <td><%= link_to 'Send Email Now', admin_quote_send_email_now_path(quote) %></td>
     <td><%= link_to 'Show', quote %></td>
-    <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
-    <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Edit', edit_admin_quote_path(quote) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Quote', new_quote_path %>
+<%= link_to 'New Quote', new_admin_quote_path %>

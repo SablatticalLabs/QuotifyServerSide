@@ -1,9 +1,15 @@
 Quotify::Application.routes.draw do
   resources :users
 
-  resources :quotes do 
-    resources :quote_images, :only => [:index, :show, :new, :create]
-    get 'send_email_now'
+  resources :quotes, :only => [:show, :create] do 
+    resources :quote_images, :only => [:show, :create]
+  end
+
+  namespace :admin do
+    resources :quotes, :only => [:new, :index, :edit, :update] do 
+      resources :quote_images, :only => [:new, :index]
+      get 'send_email_now'
+    end
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
