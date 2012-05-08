@@ -11,6 +11,8 @@ Quotify::Application.routes.draw do
       get 'send_email_now'
     end
   end
+
+  match 'sms' => 'receive_text#index', :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

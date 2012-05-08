@@ -39,3 +39,4 @@ end
 gem 'therubyracer', :platform => :ruby
 
 gem 'httparty'
+gem 'twilio-ruby'
