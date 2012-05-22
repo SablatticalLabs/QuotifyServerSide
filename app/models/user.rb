@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
   has_many :witnessed_quotes, :through => :quote_witness_users, :source => :quote
 
   validate :must_have_email_or_phone
+
+  before_validation do
+    self.phone = phone.gsub(/\D/, '') unless self.phone.blank?
+  end
+
   
   def must_have_email_or_phone
     if email.blank? and phone.blank?

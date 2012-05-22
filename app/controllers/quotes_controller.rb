@@ -36,14 +36,10 @@ class QuotesController < ApplicationController
 
     #If the speaker doesn't have an email address, we need to text them to ask them their phone number
     if speaker.email.blank?
-      twilio_sid = "AC24c6f6e6c8774fc7845d7e56092031f9"
-      twilio_token = "8ece5a26d95407c7984e7392019acf2b"
-      twilio_phone_number = "9175254890"
-      @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
       @twilio_client.account.sms.messages.create(
-        :from => "+1#{twilio_phone_number}",
+        :from => TWILIO_CONFIG.TWILIO_PHONE_NUMBER,
         :to => speaker.phone,
-        :body => "Your friend #{quotifier.name} just Quotified you!  Reply to this text with your email address to be included!"
+        :body => "Your friend #{quotifier.name} just Quotified you!  Reply to this text with your email address to be kept in the loop!"
       )    
     end
 
