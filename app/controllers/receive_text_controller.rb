@@ -8,7 +8,9 @@ class ReceiveTextController < ApplicationController
     user.email = message_body
     user.save
 
-    render :text => "Thank you!  Look for an email reconnecting you and your friends in the future!"
-
+    render :text => '<?xml version="1.0" encoding="UTF-8" ?>
+                     <Response>
+                       <Sms>Thank you!  Look for an email reconnecting you and your friends in the future!</Sms>
+                     </Response>'
   end
 end
