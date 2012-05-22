@@ -8,5 +8,7 @@ class ReceiveTextController < ApplicationController
     user.email = message_body
     user.save
 
+    render :text => "Thank you!  Look for an email reconnecting you and your friends in the future!"
+
   end
 end
