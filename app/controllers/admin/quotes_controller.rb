@@ -6,7 +6,7 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.order("id desc")
+    @quotes = Quote.order("quote_time desc")
 
     respond_to do |format|
       format.html # index.html.erb
