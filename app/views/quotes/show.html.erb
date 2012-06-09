@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quotify</title>
+  <title><%= @quote.speaker.name %>'s quote | Quotify.it </title>
     <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/960.css" rel="stylesheet" />
     <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/quote.css" rel="stylesheet" />
     <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/reset.css" rel="stylesheet" />
@@ -9,43 +9,33 @@
 </head>
 <body class='style1'>
 
-<p id="notice"><%= notice %></p>
+  <div id="quote">
+    <%= @quote.quote_text %>
+  </div>
 
-<p>
-  <b>Quote text:</b>
-  <%= @quote.quote_text %>
-</p>
+  <div id="thumbnail">
+    <% if @quote.quote_images.blank? %> 
+      rob is a poop
+    <% else %>
+      <%= image_tag "/quote_images/#{@quote.quote_images.first.file_name}" %>
+    <% end %>
+  </div>
 
-<p>
-  <b>Quote time:</b>
-  <%= @quote.quote_time %>
-</p>
+  <div id="deets">
+    <span id="speaker">
+      <%= @quote.speaker.name %>
+    </span>
+    <span class="witness quotifier">
+      <%= @quote.quotifier.name %>
+    </span>
+    <% @quote.witnesses.each do |witness| %> 
+       <span class="witness">
+          <%= "#{witness[:name]} (#{witness[:email]},#{witness[:phone]})" %>
+       </span>
+    <% end %>
+    <span id="time"<%= @quote.quote_time %></span>
+  </div>
 
-<p>
-  <b>Quote speaker:</b>
-  <%= @quote.speaker.name %>
-</p>
-
-<p>
-  <b>Quote quotifier</b>
-  <%= @quote.quotifier.name %>
-</p>
-
-<p>
-  <b>Quote witnesses</b><br/>
-  <% @quote.witnesses.each do |witness| %> 
-    <%= "#{witness[:name]} (#{witness[:email]},#{witness[:phone]})" %><br/>
-  <% end %>
-
-<p>
-<b>Quote Image</b><br/>
-<% if @quote.quote_images.blank? %> 
-  rob is a poop
-<% else %>
-  <%= image_tag "/quote_images/#{@quote.quote_images.first.file_name}" %>
-
-<% end %>
-</p>
 
 
 

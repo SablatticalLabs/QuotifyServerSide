@@ -1,7 +1,15 @@
 body {
+	
 	font: Helvetica;
 	font-family:Helvetica;
 	text-align:center;
+
+}
+
+#thumbnail img{
+
+	max-height: 100px;
+	max-width: 200px;
 
 }
 
