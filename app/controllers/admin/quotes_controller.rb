@@ -1,4 +1,5 @@
 class Admin::QuotesController < ApplicationController
+  layout 'admin'
   
   http_basic_authenticate_with :name => "quotify", :password => "yourmom1" 
   
