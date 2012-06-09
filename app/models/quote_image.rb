@@ -1,4 +1,8 @@
 class QuoteImage < ActiveRecord::Base
+  include UuidHelper  #Use 6-character string as ID
+  before_create :set_uuid
+  self.primary_key = 'id'
+
   belongs_to :quote
   attr_accessor :image_data   #Temporary store for image binary data until it is written to disk
   after_create :save_image_data
