@@ -6,6 +6,15 @@ class Quote < ActiveRecord::Base
   has_many :quote_images
   validates_presence_of :quotifier, :speaker, :quote_text
   validates_associated :quotifier, :speaker
-  
+  before_create :set_slug
 
+  def set_slug
+    #Generate a unique, but short, string to uniquely identify.  May need to try again if first time has a collission
+    possible_slug = Base64.encode64(UUIDTools::UUID.random_create)[0..6] 
+    until Quote.where('slug=?', possible_slug).empty?
+      possible_slug = Base64.encode64(UUIDTools::UUID.random_create)[0..6] 
+    end
+    self.slug = possible_slug
+  end
+   
 end

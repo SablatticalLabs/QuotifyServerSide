@@ -2,8 +2,8 @@ class QuotesController < ApplicationController
   
   respond_to :html, :json
   
-  # GET /quotes/1
-  # GET /quotes/1.json
+  # GET /quotes/1 - 
+  # GET /quotes/1.json - Used by iPhone
   def show
     @quote = Quote.find(params[:id])
 

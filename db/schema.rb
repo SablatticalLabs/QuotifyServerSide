@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120312023630) do
+ActiveRecord::Schema.define(:version => 20120609184436) do
 
   create_table "quote_images", :force => true do |t|
     t.integer  "quote_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120312023630) do
     t.string   "coordinate"
     t.datetime "email_send_scheduled_time"
     t.boolean  "email_sent_flag"
+    t.string   "slug"
   end
 
   create_table "users", :force => true do |t|

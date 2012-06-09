@@ -40,3 +40,6 @@ gem 'therubyracer', :platform => :ruby
 
 gem 'httparty'
 gem 'twilio-ruby'
+
+gem 'uuidtools'
+gem 'pry-rails', :group => :development
