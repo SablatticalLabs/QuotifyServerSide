@@ -17,7 +17,10 @@ class QuotesController < ApplicationController
   def history
     user = User.find_by_email(params[:email])
     @quotes = user.quotified_quotes
-    respond_with(@quotes)
+
+    respond_to do |format|
+      format.json { render json: {quote_history: @quotes }}
+    end
   end
 
   # POST /quotes
