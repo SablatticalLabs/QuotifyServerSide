@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quotify</title>
+    <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/960.css" rel="stylesheet" />
+    <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/quote.css" rel="stylesheet" />
+    <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/reset.css" rel="stylesheet" />
+    <link media="screen" type="text/css" href="http://quotify.it/Assets/Styles/text.css" rel="stylesheet" />
+</head>
+<body class='style1'>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -28,8 +39,11 @@
 
 <p>
 <b>Quote Image</b><br/>
-<% unless @quote.quote_images.blank? %> 
+<% if @quote.quote_images.blank? %> 
+  rob is a poop
+<% else %>
   <%= image_tag "/quote_images/#{@quote.quote_images.first.file_name}" %>
+
 <% end %>
 </p>
 

@@ -1,0 +1,16 @@
+body {
+	font: Helvetica;
+	font-family:Helvetica;
+	text-align:center;
+
+}
+
+
+/* style 1 */
+body.style1 {
+
+	background-color: #ccffff;
+	color: black;
+
+}
+
