@@ -13,6 +13,13 @@ class QuotesController < ApplicationController
     end
   end
 
+  # GET Called from iPhone to get history for a given email address
+  def history
+    user = User.find_by_email(params[:email])
+    @quotes = user.quotified_quotes
+    respond_with(@quotes)
+  end
+
   # POST /quotes
   # POST /quotes.json
   def create
