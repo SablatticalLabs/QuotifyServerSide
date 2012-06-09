@@ -5,3 +5,5 @@ tmp/
 .sass-cache/
 public/quote_images/
 *.swp
+sftp-config.json
+
