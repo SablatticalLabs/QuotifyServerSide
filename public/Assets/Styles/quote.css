@@ -1,8 +1,9 @@
 body {
-	
+
 	font: Helvetica;
 	font-family:Helvetica;
 	text-align:center;
+	margin: 0 auto;
 
 }
 
@@ -13,6 +14,58 @@ body {
 
 }
 
+
+#quote {
+
+	background: url( 'http://www.quotify.it/Assets/Images/quote/bubble.png') no-repeat left;
+	color: white;
+	margin: 20px auto;
+	height: 200px;
+	position: relative;
+	text-align: center;
+	width: 300px;
+	
+}
+#quote p{
+
+	margin: auto;
+	position: absolute;
+	vertical-align: middle;
+	top: 40%;
+	width: 100%;
+
+}
+#thumbnail {
+
+	margin: 10px auto 50px;
+	
+}
+
+#deets {
+
+
+	
+}
+
+#speaker {
+
+	font-weight: bold;
+	
+}
+
+.witness{
+
+
+}
+
+#footer{
+
+	bottom: 0px;
+	background-color: #ccffcc;
+	position: absolute;
+	width: 100%;
+
+}
 
 /* style 1 */
 body.style1 {

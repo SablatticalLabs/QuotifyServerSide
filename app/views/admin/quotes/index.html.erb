@@ -3,6 +3,7 @@
 <table style="border='1px'">
   <tr>
     <th>ID</th>
+    <th>Link</th>
     <th>Quote text</th>
     <th>Quote time</th>
     <th>Images</th>
@@ -16,12 +17,12 @@
     <th>Send Mail Now<th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @quotes.each do |quote| %>
   <tr>
     <td><%= quote.id %></td>
+    <td><%= link_to 'Show', quote %></td>
     <td><%= quote.quote_text %></td>
     <td><%= quote.quote_time %></td>
     <td><%= link_to quote.quote_images.count, admin_quote_quote_images_path(quote) %></td>
@@ -33,7 +34,6 @@
     <td><%= quote.email_send_scheduled_time %></td>
     <td><%= quote.email_sent_flag %> </td>
     <td><%= link_to 'Send Email Now', admin_quote_send_email_now_path(quote) %></td>
-    <td><%= link_to 'Show', quote %></td>
     <td><%= link_to 'Edit', edit_admin_quote_path(quote) %></td>
   </tr>
 <% end %>
