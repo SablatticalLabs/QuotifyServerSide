@@ -89,7 +89,7 @@ body {
 }
 #main #core #why{
 	background: url( 'http://www.quotify.it/Assets/Images/icons.png') no-repeat left;
-	color: #a2a2a2;
+	color: #929292;
 	text-align: left;
 	list-style: none;
 	margin-top: 10px;
@@ -193,6 +193,7 @@ span.quote{
 
 #simplemodal-overlay {
 	background-color: black;
+	cursor: pointer;
 	opacity: 0.5;
 }
 

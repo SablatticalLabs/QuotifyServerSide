@@ -18,4 +18,12 @@ jQuery(function ($) {
 
 	});
 
+	// close modal
+	$("#simplemodal-overlay").live('click',function(e){
+		
+		$('#simplemodal-container').remove();
+		$('#simplemodal-overlay').remove();
+
+	});
+
 });
