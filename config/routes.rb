@@ -14,6 +14,8 @@ Quotify::Application.routes.draw do
   end
 
   match 'sms' => 'receive_text#index', :via => :post
+
+  match ':id' => 'quotes#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
