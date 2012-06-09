@@ -10,4 +10,12 @@ jQuery(function ($) {
 
 		return false;
 	});
+
+	//'download now' link
+	$('#main #subhead .download').live('click',function(){
+
+		$(this).find('img').click();
+
+	});
+
 });
