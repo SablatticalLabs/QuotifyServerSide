@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120609201804) do
+ActiveRecord::Schema.define(:version => 20120609215327) do
 
   create_table "quote_images", :id => false, :force => true do |t|
     t.string   "id"
-    t.integer  "quote_id"
+    t.string   "quote_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

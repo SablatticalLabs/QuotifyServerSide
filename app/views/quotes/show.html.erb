@@ -26,5 +26,12 @@
     <%= "#{witness[:name]} (#{witness[:email]},#{witness[:phone]})" %><br/>
   <% end %>
 
+<p>
+<b>Quote Image</b><br/>
+<% unless @quote.quote_images.blank? %> 
+  <%= image_tag "/quote_images/#{@quote.quote_images.first.file_name}" %>
+<% end %>
+</p>
+
 
 
