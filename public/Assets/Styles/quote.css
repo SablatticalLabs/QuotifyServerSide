@@ -37,7 +37,7 @@ body {
 }
 #thumbnail {
 
-	margin: 10px auto 50px;
+	margin: 0px auto 15px;
 	
 }
 
@@ -55,6 +55,21 @@ body {
 
 .witness{
 
+	font-weight: bold;
+
+}
+
+#comments{
+
+	-webkit-border-radius:1em;
+	-moz-border-radius:1em;
+	border-radius:1em;
+	background-clip:border;
+
+	background-color: white;
+	margin: 10px auto;
+	padding: 10px 20px;
+	width: 50%;
 
 }
 
@@ -62,7 +77,8 @@ body {
 
 	bottom: 0px;
 	background-color: #ccffcc;
-	position: absolute;
+	padding-top: 5px;
+	position: fixed;
 	width: 100%;
 
 }
