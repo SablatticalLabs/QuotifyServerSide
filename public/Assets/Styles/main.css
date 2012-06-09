@@ -54,17 +54,20 @@ body {
 	color: #7e7e7e;
 	height: 137px;
 	text-align: right;
-	padding: 30px 320px 0px 20px
+	padding: 20px 320px 0px 20px
 }
 #main #subhead .desc{
-	font-size: larger;
+	font-size: 1.7em;
 	text-shadow: white 3px 1px 1px;	
+	margin-bottom: 10px;
 
 }
 #main #subhead .download{
+	cursor: pointer;
 	color: black;
 	font-weight: bold;
 	text-shadow: white 3px 1px 1px;	
+
 }
 
 #main #subhead .download p{
@@ -107,9 +110,6 @@ body {
 	right: -3em;
 }
 #main #footer{
-	border-radius: 0em 0em 0.5em 0.5em;
-	-webkit-border-radius: 0em 0em 0.5em 0.5em;
-	-moz-border-radius: 0em 0em 0.5em 0.5em;
 	background-color: #424242;
 	height: 600px;
 	margin-top: -25px;
@@ -197,10 +197,11 @@ span.quote{
 }
 
 #basic-modal-content{
+	background-color: black;
 	border-radius: 0.6em;
+	display: none;
 	-webkit-border-radius: 0.6em;
 	-moz-border-radius: 0.6em;
-	display: none;
-	background-color: black;
+	overflow: none;
 	padding: 2em;
 }
