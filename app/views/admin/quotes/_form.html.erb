@@ -1,4 +1,4 @@
-<%= form_for(@quote) do |f| %>
+<%= form_for(@quote, :url => (@quote.new_record? ? quotes_url : admin_quote_url(@quote))) do |f| %>
   <% if @quote.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
