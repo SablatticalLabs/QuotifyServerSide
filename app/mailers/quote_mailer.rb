@@ -3,7 +3,7 @@ class QuoteMailer < ActionMailer::Base
   
   def quotifier_email(quote)
     @quote = quote
-    mail(:to => quote.quotifier.email, :from =>"\"Quotify.it\" <reply@quotify.it>", :subject => "Your Quote Has Arrived")
+    mail(:to => quote.quotifier.email, :from =>"\"Quotify.it\" <reply@quotify.it>", :subject => "#{quote.speaker.name}'s Quote Has Arrived")
 
   end
 

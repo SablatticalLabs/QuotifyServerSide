@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120609223902) do
+ActiveRecord::Schema.define(:version => 20120610193545) do
 
   create_table "quote_images", :id => false, :force => true do |t|
     t.string   "id"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20120609223902) do
     t.datetime "updated_at"
     t.string   "location"
     t.string   "coordinate"
-    t.datetime "email_send_scheduled_time"
-    t.boolean  "email_sent_flag"
+    t.datetime "messages_send_scheduled_time"
+    t.boolean  "messages_sent_flag"
   end
 
   create_table "users", :force => true do |t|
