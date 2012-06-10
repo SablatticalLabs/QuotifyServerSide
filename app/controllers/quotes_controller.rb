@@ -15,8 +15,9 @@ class QuotesController < ApplicationController
 
   # GET Called from iPhone to get history for a given email address
   def history
-    user = User.find_by_email(params[:email])
-    @quotes = user.quotified_quotes
+    users = User.find_all_by_email(params[:email])
+    @quotes = []
+    users.each { |user| @quotes |= user.quotified_quotes }
 
     respond_to do |format|
       format.json { render json: {quote_history: @quotes }}
@@ -26,11 +27,11 @@ class QuotesController < ApplicationController
   # POST /quotes
   # POST /quotes.json
   def create
-    #Look up the speaker, quotifier, and witnesses - if they don't exist yet, then create them anew
-    #TO DO: User should be unique based on who is quotifying.  That way if kevin calls me 'dickwad', others dont see that.
-    speaker = User.find_or_create(params[:quote][:speaker])  
-    quotifier = User.find_or_create(params[:quote][:quotifier]) 
-    witnesses = params[:quote][:witnesses].map {|witness| User.find_or_create(witness)} if params[:quote][:witnesses] 
+    #TO DO: Right now, just creating a new user every time.  If we stick with this, then really dont need user model at all.  
+    #If we do somehow look people up, need to make logic smarter somehow.
+    speaker = User.create(params[:quote][:speaker])  
+    quotifier = User.create(params[:quote][:quotifier]) 
+    witnesses = params[:quote][:witnesses].map {|witness| User.create(witness)} if params[:quote][:witnesses] 
     quote_time = params[:quote][:time] || Time.now
 
     #Set the randomly scheduled time to send the email and text messages to some point in the future.  
