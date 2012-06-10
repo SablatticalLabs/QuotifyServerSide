@@ -65,7 +65,7 @@ class Admin::QuotesController < ApplicationController
 
   def send_email_now
     @quote = Quote.find(params[:quote_id])
-    QuoteMailer.quote_email(@quote).deliver
+    @quote.send_messages
     redirect_to action: "index"
   end
 

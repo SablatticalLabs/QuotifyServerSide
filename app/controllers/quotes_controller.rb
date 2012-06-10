@@ -33,9 +33,10 @@ class QuotesController < ApplicationController
     quote_time = params[:quote][:time] || Time.now
 
     #Set the randomly scheduled time to send the email to some point in the future.  
-    #TODO: Make this a longer interval once done with testing, and also ensure that messages are only sent during normal daytime hours for texts
-    #This is currently only set to go up to an 8 hour random range.  We will eventually make this longer.
-    email_send_scheduled_time = params[:quote][:email_send_scheduled_time] || Time.now + rand( 60 * 60 * 8)
+    #This is currently only set to go between 6 and 11 days after the message is received, at 2PM EST.
+    email_send_scheduled_time = Time.parse((Date.today + (rand(5) + 6).days).to_s + " 02:00PM") 
+    email_send_scheduled_time = Date.yesterday if params[:schedule_in_past_flag] 
+
     email_sent_flag = params[:quote][:email_sent_flag] || false
 
     @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier, 
