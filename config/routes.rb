@@ -9,7 +9,7 @@ Quotify::Application.routes.draw do
   namespace :admin do
     resources :quotes, :only => [:new, :index, :edit, :update] do 
       resources :quote_images, :only => [:new, :index]
-      get 'send_email_now'
+      get 'send_messages_now'
     end
   end
 

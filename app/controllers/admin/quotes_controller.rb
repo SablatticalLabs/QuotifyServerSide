@@ -39,9 +39,10 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.find(params[:id])
     speaker = User.find_or_create(params[:quote][:speaker])
     quotifier = User.find_or_create(params[:quote][:quotifier])
+    messages_send_scheduled_time = if params[:schedule_in_past_flag] then Date.yesterday else @quote.messages_send_scheduled_time end 
 
     respond_to do |format|
-      if @quote.update_attributes(params[:quote].except(:speaker, :quotifier).merge({:speaker=>speaker, :quotifier=>quotifier}))
+      if @quote.update_attributes(params[:quote].except(:speaker, :quotifier).merge({:speaker=>speaker, :quotifier=>quotifier, :messages_send_scheduled_time => messages_send_scheduled_time}))
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
         format.json { head :ok }
       else
@@ -63,9 +64,9 @@ class Admin::QuotesController < ApplicationController
     end
   end
 
-  def send_email_now
+  def send_messages_now
     @quote = Quote.find(params[:quote_id])
-    QuoteMailer.quote_email(@quote).deliver
+    @quote.send_messages
     redirect_to action: "index"
   end
 
