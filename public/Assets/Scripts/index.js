@@ -5,7 +5,7 @@ jQuery(function ($) {
 	//$('#basic-modal-content').modal();
 
 	// Load dialog on click
-	$('#iphone').click(function (e) {
+	$('.video, #mid').click(function (e) {
 		$('#basic-modal-content').modal();
 
 		return false;

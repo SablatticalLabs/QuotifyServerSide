@@ -1,0 +1,195 @@
+body {
+	background-color: white;
+	color: #494949;
+	font: Arial;
+	font-family:Arial;
+	text-align:center;
+
+}
+
+.major {
+
+	width: 100%;
+	position: relative;
+
+}
+
+#top {
+
+	height: 270px;
+	background-color: #9ab5c0;
+
+}
+
+#logo{
+	
+	left: 50%;
+	margin-left: -230px;
+	position: absolute;
+	top: 40px;
+}
+
+#top #buttons{
+
+	bottom: -20px;
+	margin-left: -100px;
+	position: absolute;
+	left: 50%;
+	z-index: 10;
+
+}
+
+#top a.download{
+
+	margin-right: 12px;
+
+}
+
+#top a.video{
+
+	margin-left: 12px;
+
+}
+
+#middle {
+
+	height: 340px;
+	background-color: #fff;
+
+}
+
+.wrapper {
+
+	margin: 0 auto;
+	position: relative;
+	width: 540px;
+
+}
+
+#middle #left {
+
+	position: absolute;
+	left: 90px;
+	top: 90px;
+
+}
+
+#middle #mid {
+
+	cursor: pointer;
+	position: absolute;
+	margin-left: -30px;
+	left: 50%;
+	top: 50px;
+
+}
+
+#middle #right {
+
+	position: absolute;
+	left: 400px;
+	top: 100px;
+
+}
+
+#bottom {
+
+	height: 170px;
+	background-color: #858585;
+
+}
+
+#bottom .copyright {
+
+	color: #afafaf;
+	font-size: 9px;
+	margin-left: 10px;
+
+}
+
+#bottom .nav {
+
+	font: 'Providence';
+	font-family: 'Providence';
+	left: -20px;
+	position: absolute;
+	text-align: left;
+	top: 15px;
+
+}
+
+#bottom .nav a {
+
+	color:white;
+	margin: 0 10px;
+
+}
+
+#bottom .quotes {
+
+	background: url( 'http://www.quotify.it/Assets/Images/lp/quotes.png') no-repeat left;
+	height: 130px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 335px;
+
+}
+
+#quote1, #quote2, #quote3 {
+
+	font-size: 9px;
+	position: absolute;
+	width: 100px;
+
+} 
+
+#quote1 span, #quote2 span, #quote3 span {
+	
+	font-weight: bold;
+
+}
+
+#quote1 {
+
+	left: 18px;
+	top: 53px;
+	width: 90px;
+
+}
+
+#quote2 {
+
+	left: 116px;
+	top: 64px;
+
+}
+
+#quote3 {
+
+	left: 220px;
+	top: 50px;
+
+}
+
+#simplemodal-overlay {
+	background-color: black;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+#simplemodal-container h3 {
+
+	color: white;
+
+}
+
+#basic-modal-content{
+	background-color: black;
+	border-radius: 0.6em;
+	display: none;
+	-webkit-border-radius: 0.6em;
+	-moz-border-radius: 0.6em;
+	overflow: none;
+	padding: 2em;
+}
