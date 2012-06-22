@@ -1,0 +1,119 @@
+body {
+	background-color: white;
+	color: #494949;
+	font: Arial;
+	font-family:Arial;
+	text-align:center;
+
+}
+
+.major {
+
+	width: 100%;
+	position: relative;
+
+}
+
+#top {
+
+	height: 270px;
+	background-color: #9ab5c0;
+
+}
+
+#logo{
+	
+	left: 50%;
+	margin-left: -230px;
+	position: absolute;
+	top: 40px;
+}
+
+#top #buttons{
+
+	bottom: -20px;
+	margin-left: -100px;
+	position: absolute;
+	left: 87%;
+	z-index: 10;
+
+}
+
+#top a.download{
+
+	margin-right: 12px;
+
+}
+
+#top a.video{
+
+	margin-left: 12px;
+
+}
+
+#middle {
+
+	height: 340px;
+	background-color: #fff;
+
+}
+
+.wrapper {
+
+	margin: 0 auto;
+	position: relative;
+	width: 540px;
+
+}
+
+#middle #left {
+
+	position: absolute;
+	left: 100px;
+	top: 90px;
+
+}
+
+#about {
+
+	margin: 40px auto;
+	text-align: left;
+	width: 600px;
+}
+
+#about h1 {
+
+	margin-left: 60px;
+	font-weight: normal;
+
+}
+
+#about ul {
+
+	list-style: none;
+
+}
+
+#about ul img {
+
+	float: left;
+	max-height: 100px;
+	max-width: 100px;
+	padding: 10px;
+
+}
+#about ul h4 {
+
+	display: inline;
+	font-weight: normal;
+
+}
+#about ul a {
+
+	color: #8bb1c0;
+	margin-left: 5px;
+	font-weight: normal;
+
+}
+
+
