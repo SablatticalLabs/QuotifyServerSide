@@ -14,7 +14,7 @@ class QuoteMailer < ActionMailer::Base
 
   def witness_email(quote, witness)
     @quote = quote
-    mail(:to => witness.email, :from =>"\"Quotify.it\" <reply@quotify.it>", :subject => "#{quote.quotifier.name} Included You In A Quote!")
+    mail(:to => witness.email, :from =>"\"Quotify.it\" <reply@quotify.it>", :subject => "#{quote.quotifier.name} Tagged You In A Quote!")
   end
 
 end
