@@ -76,6 +76,7 @@ body {
 
 #middle #mid {
 
+	cursor: pointer;
 	position: absolute;
 	margin-left: -20px;
 	left: 50%;
@@ -169,4 +170,26 @@ body {
 	left: 220px;
 	top: 50px;
 
+}
+
+#simplemodal-overlay {
+	background-color: black;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+#simplemodal-container h3 {
+
+	color: white;
+
+}
+
+#basic-modal-content{
+	background-color: black;
+	border-radius: 0.6em;
+	display: none;
+	-webkit-border-radius: 0.6em;
+	-moz-border-radius: 0.6em;
+	overflow: none;
+	padding: 2em;
 }
