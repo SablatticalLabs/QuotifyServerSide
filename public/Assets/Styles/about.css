@@ -45,34 +45,7 @@ body {
 
 }
 
-#top a.video{
 
-	margin-left: 12px;
-
-}
-
-#middle {
-
-	height: 340px;
-	background-color: #fff;
-
-}
-
-.wrapper {
-
-	margin: 0 auto;
-	position: relative;
-	width: 540px;
-
-}
-
-#middle #left {
-
-	position: absolute;
-	left: 100px;
-	top: 90px;
-
-}
 
 #about {
 
