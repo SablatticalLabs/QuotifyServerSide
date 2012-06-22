@@ -29,12 +29,11 @@ body {
 	top: 40px;
 }
 
-#top #buttons{
+#about #buttons{
 
-	bottom: -20px;
-	margin-left: -100px;
+	top: -60px;
 	position: absolute;
-	left: 87%;
+	right: 0%;
 	z-index: 10;
 
 }
