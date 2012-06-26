@@ -16,22 +16,24 @@ body {
 
 #top {
 
-	height: 320px;
+	height: 540px;
 	background-color: #9ab5c0;
 
 }
 
+
 #logo{
 	
-	left: 46%;
+	left: 35%;
 	margin-left: -230px;
 	position: absolute;
-	top: 40px;
+	top: 60px;
+	z-index: 10;
 }
 
 #buttons{
 
-	top: -120px;
+	top: -210px;
 	position: absolute;
 	right: 0%;
 	z-index: 10;
@@ -40,33 +42,37 @@ body {
 
 #quote {
 
-	background: url(http://www.quotify.it/Assets/Images/quote/quotebubble.png) no-repeat;
-	height: 152px;
+	background: url(/Assets/Images/quote/quotebubble.png) no-repeat;
+	height: 574px;
 	left: 50%;
-	margin-left: -300px;
+	margin-left: -550px;
 	padding: 35px 0px;
 	position: absolute;
-	top: 70px;
-	width: 585px;
+	top: -40px;
+	width: 1155px;
 }
 
 #inner {
 
-	max-height: 80px;
+	left: 50%;
+	max-height: 170px;
 	overflow-y: scroll;
-	margin: 0px auto;
-	width: 270px;
+	position: absolute;
+	margin: 0px -230px;
+	font-size: 1.6em;
+	top: 250px;
+	width: 460px;
 
 }
 
 #deets{
 
-	font-size: 10px;
-	left: 34%;
+	font-size: 16px;
+	left: 36%;
 	position: absolute;
 	text-align: center;
-	width: 225px;
-	top: 340px;
+	width: 275px;
+	top: 750px;
 
 }
 
@@ -77,19 +83,19 @@ body {
 	-box-shadow: 0.3em 0.3em 0.3em  #544e42;
 	background-color: white;
 	left: 50%;
-	margin-left: -70px;
+	margin-left: -170px;
 	padding: 10px;
 	position: absolute;
-	height: 155px;
-	width: 155px;
-	top: 160px;
+	height: 255px;
+	width: 255px;
+	top: 460px;
 
 }
 #top #thumbnail img {
 
-	border: 1px black #544e42;
-	max-height: 135px;
-	max-width: 135px;
+	border: 2px black #544e42;
+	max-height: 235px;
+	max-width: 235px;
 
 }
 
@@ -110,9 +116,10 @@ body {
 
 #comments {
 
-	margin: 100px auto;
+	min-height: 600px;
+	margin: 170px auto;
 	text-align: left;
-	width: 600px;
+	width: 900px;
 }
 
 

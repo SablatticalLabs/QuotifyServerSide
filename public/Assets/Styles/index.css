@@ -1,5 +1,5 @@
 body {
-	background-color: white;
+	background-color: #858585;
 	color: #494949;
 	font: Arial;
 	font-family:Arial;
@@ -16,7 +16,7 @@ body {
 
 #top {
 
-	height: 270px;
+	height: 540px;
 	background-color: #9ab5c0;
 
 }
@@ -24,36 +24,36 @@ body {
 #logo{
 	
 	left: 50%;
-	margin-left: -230px;
+	margin-left: -520px;
 	position: absolute;
-	top: 40px;
+	top: -30px;
 }
 
 #top #buttons{
 
-	bottom: -20px;
-	margin-left: -100px;
+	bottom: -40px;
+	margin-left: -200px;
 	position: absolute;
 	left: 50%;
 	z-index: 10;
 
 }
 
-#top a.download{
+#top a.video{
 
-	margin-right: 12px;
+	margin-right: 10px;
 
 }
 
-#top a.video{
+#top a.download{
 
-	margin-left: 12px;
+	margin-left: 24px;
 
 }
 
 #middle {
 
-	height: 340px;
+	height: 680px;
 	background-color: #fff;
 
 }
@@ -62,15 +62,15 @@ body {
 
 	margin: 0 auto;
 	position: relative;
-	width: 540px;
+	width: 880px;
 
 }
 
 #middle #left {
 
 	position: absolute;
-	left: 90px;
-	top: 90px;
+	left: 70px;
+	top: 150px;
 
 }
 
@@ -78,23 +78,43 @@ body {
 
 	cursor: pointer;
 	position: absolute;
-	margin-left: -30px;
+	margin-left: -100px;
 	left: 50%;
-	top: 50px;
+	top: 90px;
 
 }
 
 #middle #right {
 
 	position: absolute;
-	left: 400px;
-	top: 100px;
+	left: 650px;
+	top: 180px;
 
+}
+
+#core{
+	background-color: white;
+	height: 400px;
+}
+#core #why{
+	background: url( '/Assets/Images/icons.png') no-repeat left;
+	color: #a2a2a2;
+	text-align: left;
+	list-style: none;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 420px;
+}
+ #core #why li{
+	padding: 6px 3px;
+}
+#core #why em{
+	color: #3b3b3b;
 }
 
 #bottom {
 
-	height: 170px;
+	height: 340px;
 	background-color: #858585;
 
 }
@@ -102,8 +122,8 @@ body {
 #bottom .copyright {
 
 	color: #afafaf;
-	font-size: 9px;
-	margin-left: 10px;
+	font-size: 16px;
+	margin-left: 20px;
 
 }
 
@@ -111,34 +131,37 @@ body {
 
 	font: 'Providence';
 	font-family: 'Providence';
-	left: -20px;
+	left: -40px;
 	position: absolute;
 	text-align: left;
-	top: 15px;
+	top: 30px;
 
 }
 
 #bottom .nav a {
 
+
 	color:white;
+	font-size: 20px;
 	margin: 0 10px;
 
 }
 
 #bottom .quotes {
 
-	background: url( 'http://www.quotify.it/Assets/Images/lp/quotes.png') no-repeat left;
-	height: 130px;
+	background: url( '/Assets/Images/lp/quotes.png') no-repeat left;
+	height: 260px;
 	position: absolute;
-	right: 0px;
+	right: -150px;
 	top: 0px;
-	width: 335px;
+	width: 670px;
 
 }
 
 #quote1, #quote2, #quote3 {
 
-	font-size: 9px;
+	color: white;
+	font-size: 18px;
 	position: absolute;
 	width: 100px;
 
@@ -152,6 +175,7 @@ body {
 
 #quote1 {
 
+	display: none;
 	left: 18px;
 	top: 53px;
 	width: 90px;
@@ -160,6 +184,7 @@ body {
 
 #quote2 {
 
+	display: none;
 	left: 116px;
 	top: 64px;
 
@@ -167,6 +192,7 @@ body {
 
 #quote3 {
 
+	display: none;
 	left: 220px;
 	top: 50px;
 
