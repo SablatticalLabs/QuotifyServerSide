@@ -66,11 +66,17 @@ body {
 
 }
 
-#about ul img {
+#about ul li {
 
+	width: 600px;
+
+}
+
+#about ul img {
+	
 	float: left;
-	max-height: 100px;
-	max-width: 100px;
+	height: 100px;
+	width: 100px;
 	padding: 10px;
 
 }
