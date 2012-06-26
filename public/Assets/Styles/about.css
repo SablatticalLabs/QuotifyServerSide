@@ -7,6 +7,15 @@ body {
 
 }
 
+h1 {
+	font-size: x-large;
+}
+
+p {
+
+	font-size: 1.1em;
+}
+
 .major {
 
 	width: 100%;
@@ -16,22 +25,23 @@ body {
 
 #top {
 
-	height: 270px;
+	height: 540px;
 	background-color: #9ab5c0;
 
 }
 
+
 #logo{
 	
 	left: 50%;
-	margin-left: -230px;
+	margin-left: -520px;
 	position: absolute;
-	top: 40px;
+	top: -30px;
 }
 
 #about #buttons{
 
-	top: -60px;
+	top: -90px;
 	position: absolute;
 	right: 0%;
 	z-index: 10;
@@ -49,8 +59,9 @@ body {
 #about {
 
 	margin: 40px auto;
+	padding: 0px 20px 10px 40px;
 	text-align: left;
-	width: 600px;
+	width: 880px;
 }
 
 #about h1 {
@@ -66,11 +77,18 @@ body {
 
 }
 
-#about ul img {
+#about ul li {
 
+	clear: both;
+	width: 880px;
+
+}
+
+#about ul img {
+	
 	float: left;
-	max-height: 100px;
-	max-width: 100px;
+	height: 120px;
+	width: 120px;
 	padding: 10px;
 
 }
