@@ -16,23 +16,28 @@ class Quote < ActiveRecord::Base
   #Send out email, or if we only have phone number, send text message, to quotifier, speaker, and witnesses
   def send_messages
     QuoteMailer.quotifier_email(self).deliver
+    send_errors = []
 
     unless speaker.email.blank?
       QuoteMailer.speaker_email(self).deliver
     else
-      send_twillio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{id}")
+      send_status = send_twillio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{id}")
+      send_errors << send_status unless send_status == 'Success'
     end
 
     witnesses.each do |witness|
       unless witness.email.blank?
         QuoteMailer.witness_email(self, witness).deliver
       else
-       send_twillio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{id}")
+       send_status = send_twillio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{id}")
+       send_errors << send_status unless send_status == 'Success'
       end
     end
 
     #Set flag that messaging has been sent.
     self.messages_sent_flag = true
+    self.error_flag = ! (send_errors.empty?)
+    self.error_string = send_errors.join(',')
     self.save
   end
 
@@ -44,10 +49,12 @@ class Quote < ActiveRecord::Base
           :to => phone,
           :body => msg
         )    
-    rescue Twilio::REST::RequestError
-      false
+    rescue Twilio::REST::RequestError => error_message
+      error_message.to_s
+    else
+      'Success'
     end
-    true
+
   end
 
 end
