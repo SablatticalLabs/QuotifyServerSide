@@ -38,11 +38,16 @@ class Quote < ActiveRecord::Base
 
   private
   def send_twillio_message(phone, msg)
-    TWILIO_CLIENT.account.sms.messages.create(
-        :from => TWILIO_PHONE_NUMBER,
-        :to => phone,
-        :body => msg
-      )    
+    begin
+      TWILIO_CLIENT.account.sms.messages.create(
+          :from => TWILIO_PHONE_NUMBER,
+          :to => phone,
+          :body => msg
+        )    
+    rescue Twilio::REST::RequestError
+      false
+    end
+    true
   end
 
 end
