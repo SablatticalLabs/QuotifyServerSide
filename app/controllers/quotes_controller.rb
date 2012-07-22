@@ -15,7 +15,7 @@ class QuotesController < ApplicationController
 
   # GET Called from iPhone to get history for a given email address
   def history
-    users = User.find_all_by_email(params[:email])
+    users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
     users.each { |user| @quotes |= user.quotified_quotes }
 
