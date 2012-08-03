@@ -74,7 +74,7 @@ class Admin::QuotesController < ApplicationController
 
   def send_messages_now
 
-    Mixpanel.track("Send Messages Via Admin", { :user=> request.remote_ip , params[:quote_id] })
+    Mixpanel.track("Send Messages Via Admin", { :user=> request.remote_ip , :quote_id => params[:quote_id] })
 
     @quote = Quote.find(params[:quote_id])
     @quote.send_messages
