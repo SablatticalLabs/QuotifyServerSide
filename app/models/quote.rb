@@ -1,6 +1,7 @@
 class Quote < ActiveRecord::Base
   include UuidHelper  #Use 6-character string as ID
   before_create :set_uuid
+  before_create :set_user_quote_ids 
   self.primary_key = 'id'
 
   belongs_to :speaker, :class_name => "User", :foreign_key => "speaker_user_id"
@@ -41,10 +42,26 @@ class Quote < ActiveRecord::Base
     self.save
   end
 
+  #The JSON returned for a quote should include details on the speaker 
   def as_json(options={})
     super(:include =>[:speaker])
   end
 
+  def set_user_quote_ids
+    self.quotifier_quote_id = Quote.get_unique_quote_id
+    self.speaker_quote_id = Quote.get_unique_quote_id  
+  end
+
+
+  #We are going to keep unique surrogate Quote IDs for each quote for each user so when they come back we know who they are by 
+  #virtue of the link.  So, need a way to generate these quickly.
+  def self.get_unique_quote_id
+    possible_id = Base64.encode64(UUIDTools::UUID.random_create)[0..7]
+    until Quote.where("quotes.id = ? or quotes.quotifier_quote_id = ? or quotes.speaker_quote_id = ? or quote_witness_users.witness_quote_id = ?", possible_id,possible_id,possible_id,possible_id).joins(:quote_witness_users).empty?
+      possible_id = Base64.encode64(UUIDTools::UUID.random_create)[0..7]
+    end
+    possible_id
+  end
 
   private
   def send_twillio_message(phone, msg)
@@ -59,7 +76,7 @@ class Quote < ActiveRecord::Base
     else
       'Success'
     end
-
   end
 
 end
+

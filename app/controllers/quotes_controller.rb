@@ -19,6 +19,11 @@ class QuotesController < ApplicationController
     @quotes = []
     users.each { |user| @quotes |= user.quotified_quotes }
 
+    @quotes.each do |quote|
+      @
+    end
+
+
     respond_to do |format|
       format.json { render json: {quote_history: @quotes }}
     end

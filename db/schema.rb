@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711004958) do
+ActiveRecord::Schema.define(:version => 20120803012152) do
 
   create_table "quote_images", :id => false, :force => true do |t|
     t.string   "id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20120711004958) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "witness_quote_id"
   end
 
   create_table "quotes", :id => false, :force => true do |t|
@@ -43,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20120711004958) do
     t.boolean  "messages_sent_flag"
     t.boolean  "error_flag"
     t.string   "error_string"
+    t.string   "quotifier_quote_id"
+    t.string   "speaker_quote_id"
   end
 
   create_table "users", :force => true do |t|
