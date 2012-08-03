@@ -8,7 +8,7 @@ class Admin::QuotesController < ApplicationController
   def index
     @quotes = Quote.order("quote_time desc")
 
-    Mixpanel.track("Admin Main Page View", { :user=> request.remote_ip })
+    Mpanel.track("Admin Main Page View", { :user=> request.remote_ip })
 
     respond_to do |format|
       format.html # index.html.erb
@@ -23,7 +23,7 @@ class Admin::QuotesController < ApplicationController
     @quote.quotifier = User.new
     @quote.speaker = User.new
 
-    Mixpanel.track("New Quote Via Admin", { :user=> request.remote_ip })
+    Mpanel.track("New Quote Via Admin", { :user=> request.remote_ip })
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,7 +45,7 @@ class Admin::QuotesController < ApplicationController
     quotifier = User.find_or_create(params[:quote][:quotifier])
     messages_send_scheduled_time = if params[:schedule_in_past_flag] then Date.yesterday else @quote.messages_send_scheduled_time end 
 
-    Mixpanel.track("Update Quote Via Admin", { :user=> request.remote_ip })
+    Mpanel.track("Update Quote Via Admin", { :user=> request.remote_ip })
 
     respond_to do |format|
       if @quote.update_attributes(params[:quote].except(:speaker, :quotifier).merge({:speaker=>speaker, :quotifier=>quotifier, :messages_send_scheduled_time => messages_send_scheduled_time}))
@@ -64,7 +64,7 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.find(params[:id])
     @quote.destroy
 
-    Mixpanel.track("Delete Quote Via Admin", { :user=> request.remote_ip })
+    Mpanel.track("Delete Quote Via Admin", { :user=> request.remote_ip })
 
     respond_to do |format|
       format.html { redirect_to quotes_url }
@@ -74,7 +74,7 @@ class Admin::QuotesController < ApplicationController
 
   def send_messages_now
 
-    Mixpanel.track("Send Messages Via Admin", { :user=> request.remote_ip , :quote_id => params[:quote_id] })
+    Mpanel.track("Send Messages Via Admin", { :user=> request.remote_ip , :quote_id => params[:quote_id] })
 
     @quote = Quote.find(params[:quote_id])
     @quote.send_messages
