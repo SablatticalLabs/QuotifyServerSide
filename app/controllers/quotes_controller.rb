@@ -7,6 +7,9 @@ class QuotesController < ApplicationController
   def show
     @quote = Quote.find(params[:id])
 
+
+    Mixpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @quote }
@@ -19,6 +22,8 @@ class QuotesController < ApplicationController
     @quotes = []
     users.each { |user| @quotes |= user.quotified_quotes }
 
+    Mixpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
+
     respond_to do |format|
       format.json { render json: {quote_history: @quotes }}
     end
@@ -29,6 +34,9 @@ class QuotesController < ApplicationController
   def create
     #TO DO: Right now, just creating a new user every time.  If we stick with this, then really dont need user model at all.  
     #If we do somehow look people up, need to make logic smarter somehow.
+
+    Mixpanel.track("Create Quote", { :user=> request.remote_ip , :speaker => speaker, :quotifier => quotifier, })
+
     speaker = User.create(params[:quote][:speaker])  
     quotifier = User.create(params[:quote][:quotifier]) 
     witnesses = params[:quote][:witnesses].map {|witness| User.create(witness)} if params[:quote][:witnesses] 

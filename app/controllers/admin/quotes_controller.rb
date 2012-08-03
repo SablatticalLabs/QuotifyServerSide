@@ -8,6 +8,8 @@ class Admin::QuotesController < ApplicationController
   def index
     @quotes = Quote.order("quote_time desc")
 
+    Mixpanel.track("Admin Main Page View", { :user=> request.remote_ip })
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @quotes }
@@ -20,6 +22,8 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.new
     @quote.quotifier = User.new
     @quote.speaker = User.new
+
+    Mixpanel.track("New Quote Via Admin", { :user=> request.remote_ip })
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +45,8 @@ class Admin::QuotesController < ApplicationController
     quotifier = User.find_or_create(params[:quote][:quotifier])
     messages_send_scheduled_time = if params[:schedule_in_past_flag] then Date.yesterday else @quote.messages_send_scheduled_time end 
 
+    Mixpanel.track("Update Quote Via Admin", { :user=> request.remote_ip })
+
     respond_to do |format|
       if @quote.update_attributes(params[:quote].except(:speaker, :quotifier).merge({:speaker=>speaker, :quotifier=>quotifier, :messages_send_scheduled_time => messages_send_scheduled_time}))
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
@@ -58,6 +64,8 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.find(params[:id])
     @quote.destroy
 
+    Mixpanel.track("Delete Quote Via Admin", { :user=> request.remote_ip })
+
     respond_to do |format|
       format.html { redirect_to quotes_url }
       format.json { head :ok }
@@ -65,6 +73,9 @@ class Admin::QuotesController < ApplicationController
   end
 
   def send_messages_now
+
+    Mixpanel.track("Send Messages Via Admin", { :user=> request.remote_ip , params[:quote_id] })
+
     @quote = Quote.find(params[:quote_id])
     @quote.send_messages
     redirect_to action: "index"
