@@ -41,6 +41,11 @@ class Quote < ActiveRecord::Base
     self.save
   end
 
+  def as_json(options={})
+    super(:include =>[:speaker])
+  end
+
+
   private
   def send_twillio_message(phone, msg)
     begin
