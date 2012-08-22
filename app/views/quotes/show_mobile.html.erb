@@ -9,6 +9,7 @@
   </head>
   <body>
   
+  <div id="container">
   <div id="top" class='major'>
     <div id="logo">
       <a href="/">
@@ -16,13 +17,10 @@
       </a>
     </div>
     <div id="quote">
-
       <div id="inner">
         <p id="text">
           <%= @quote.quote_text %>
         </p>
-
-
     </div>
 
     <div id="thumbnail">
@@ -62,7 +60,8 @@
   </form>
 
   <ul>
-    <li>
+    <!--
+    <li class="even">
         <span class="name">
           Markus Thomas
         </span>
@@ -84,7 +83,7 @@
           Holy hell! That’s a fucking hilarious quote!!
         </p>
     </li>
-    <li>
+    <li class="even">
         <span class="name">
           Markus Thomas
         </span>
@@ -106,6 +105,7 @@
           Holy hell! That’s a fucking hilarious quote!!
         </p>
     </li>
+  -->
   </ul>
 
   </div>
@@ -137,7 +137,7 @@ mixpanel.init("10db5716f34ad4fa4aead789301c232b");</script><!-- end Mixpanel -->
 <script type="text/javascript">
     mixpanel.track("Quotes Page Pageview")
 </script>
-
+</div>
   </body>
 
 </html>
