@@ -26,4 +26,12 @@ jQuery(function ($) {
 
 	});
 
+	// comment submit 
+	$('#submitcomment input[type="submit"]').live('click',function(e){
+		
+		mixpanel.track("New Comment Submission");
+		alert('commenting coming soon!');
+		e.preventDefault();
+
+	});
 });
