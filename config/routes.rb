@@ -1,7 +1,7 @@
 Quotify::Application.routes.draw do
   resources :users
 
-  resources :quotes, :only => [:show, :create] do 
+  resources :quotes, :only => [:show, :create, :destroy] do 
     get 'history', :on => :collection
     resources :quote_images, :only => [:show, :create]
   end

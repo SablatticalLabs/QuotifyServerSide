@@ -16,25 +16,20 @@ class QuotesController < ApplicationController
     end
   end
 
-  #Called by a DELETE HTTP call to /quotes/:id
-  def destroy
-    quote = Quote.find(params[:id])
-    if quote.is_deletable? then
-      quote.deleted = true
-      quote.save
-      render json: { deleted: true}
-    else
-      render json: { deleted: false, error: "Quote is not deletable"}
-    end
-  end
-
   # GET Called from iPhone to get history for a given email address
   def history
     users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
-    users.each { |user| @quotes |= user.quotified_quotes.merge(Quote.not_deleted) }
+    users.each { |user| @quotes |= user.quotified_quotes }
 
+<<<<<<< HEAD
+    @quotes.each do |quote|
+      @
+    end
+
+=======
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
+>>>>>>> origin/master
 
     respond_to do |format|
       format.json { render json: {quote_history: @quotes }}

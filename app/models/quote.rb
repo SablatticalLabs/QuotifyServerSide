@@ -13,6 +13,11 @@ class Quote < ActiveRecord::Base
   validates_associated :quotifier, :speaker
 
   scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ?", false, Time.now)
+  scope :not_deleted, where("deleted = ? or deleted is null", false)
+
+  def is_deletable?
+    self.created_at + 1.day > Time.now 
+  end
 
   #Send out email, or if we only have phone number, send text message, to quotifier, speaker, and witnesses
   def send_messages
@@ -44,7 +49,7 @@ class Quote < ActiveRecord::Base
 
   #The JSON returned for a quote should include details on the speaker 
   def as_json(options={})
-    super(:include =>[:speaker])
+    super(:include => [:speaker], :methods => [:is_deletable?])
   end
 
   def set_user_quote_ids

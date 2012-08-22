@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803012152) do
+ActiveRecord::Schema.define(:version => 20120822014201) do
 
   create_table "quote_images", :id => false, :force => true do |t|
     t.string   "id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120803012152) do
     t.string   "error_string"
     t.string   "quotifier_quote_id"
     t.string   "speaker_quote_id"
+    t.boolean  "deleted"
   end
 
   create_table "users", :force => true do |t|
