@@ -12,7 +12,7 @@ class Quote < ActiveRecord::Base
   validates_presence_of :quotifier, :speaker, :quote_text
   validates_associated :quotifier, :speaker
 
-  scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ?", false, Time.now)
+  scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ? and (deleted = ? or deleted is null)", false, Time.now, false)
   scope :not_deleted, where("deleted = ? or deleted is null", false)
 
   def is_deletable?
