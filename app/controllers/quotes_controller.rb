@@ -7,6 +7,9 @@ class QuotesController < ApplicationController
   def show
     @quote = Quote.find(params[:id])
 
+
+    Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @quote }
@@ -19,10 +22,7 @@ class QuotesController < ApplicationController
     @quotes = []
     users.each { |user| @quotes |= user.quotified_quotes }
 
-    @quotes.each do |quote|
-      @
-    end
-
+    Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
     respond_to do |format|
       format.json { render json: {quote_history: @quotes }}
@@ -34,6 +34,8 @@ class QuotesController < ApplicationController
   def create
     #TO DO: Right now, just creating a new user every time.  If we stick with this, then really dont need user model at all.  
     #If we do somehow look people up, need to make logic smarter somehow.
+
+
     speaker = User.create(params[:quote][:speaker])  
     quotifier = User.create(params[:quote][:quotifier]) 
     witnesses = params[:quote][:witnesses].map {|witness| User.create(witness)} if params[:quote][:witnesses] 
@@ -43,6 +45,8 @@ class QuotesController < ApplicationController
     #This is currently only set to go between 6 and 11 days after the message is received, at 2PM EST.
     messages_send_scheduled_time = Time.parse((Date.today + (rand(5) + 6).days).to_s + " 02:00PM") 
     messages_send_scheduled_time = Date.yesterday if params[:schedule_in_past_flag] 
+
+    Mpanel.track("Create Quote", { :user=> request.remote_ip , :speaker => params[:quote][:speaker], :quotifier => params[:quote][:quotifier] })
 
     messages_sent_flag = params[:quote][:messages_sent_flag] || false
 
