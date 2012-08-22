@@ -1,0 +1,179 @@
+body {
+	background-color: white;
+	color: #494949;
+	font: Helvetica;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+	width: 800px;
+
+}
+
+.major {
+
+	width: 100%;
+	position: relative;
+
+}
+
+#top {
+
+	height: 540px;
+	background-color: #9ab5c0;
+
+}
+
+
+#logo{
+	
+	left: 35%;
+	margin-left: -230px;
+	position: absolute;
+	top: 60px;
+	z-index: 10;
+}
+
+#buttons{
+
+	top: -210px;
+	position: absolute;
+	right: 0%;
+	z-index: 10;
+
+}
+
+#quote {
+
+	background: url(/Assets/Images/quote/quotebubble.png) no-repeat;
+	height: 574px;
+	left: 50%;
+	margin-left: -550px;
+	padding: 35px 0px;
+	position: absolute;
+	top: -40px;
+	width: 1155px;
+}
+
+#inner {
+
+	left: 50%;
+	max-height: 170px;
+	overflow-y: scroll;
+	position: absolute;
+	margin: 0px -230px;
+	font-size: 1.6em;
+	top: 250px;
+	width: 460px;
+
+}
+
+#deets{
+
+	font-size: 16px;
+	left: 36%;
+	position: absolute;
+	text-align: center;
+	width: 275px;
+	top: 750px;
+
+}
+
+#top #thumbnail {
+
+	-webkit-box-shadow:  0.3em 0.3em 0.3em  #544e42;
+	-moz-box-shadow: 0.3em 0.3em 0.3em  #544e42;
+	-box-shadow: 0.3em 0.3em 0.3em  #544e42;
+	background-color: white;
+	left: 50%;
+	margin-left: -170px;
+	padding: 10px;
+	position: absolute;
+	height: 255px;
+	width: 255px;
+	top: 460px;
+
+}
+#top #thumbnail img {
+
+	border: 2px black #544e42;
+	max-height: 235px;
+	max-width: 235px;
+
+}
+
+#middle {
+
+	height: 340px;
+	background-color: #fff;
+
+}
+
+.wrapper {
+
+	margin: 0 auto;
+	position: relative;
+
+}
+
+
+#submitcomment {
+
+	background: white;
+	margin: 10px 0px;
+	padding: 5px 20px;
+	width: 100%;
+
+}
+
+#submitcomment input {
+
+	font-size: 40px;
+	height: 42px;
+
+}
+
+
+#comments {
+
+	background: #f2f2f2;
+	min-height: 600px;
+	margin: 170px auto;
+	text-align: center;
+	width: 100%;
+}
+
+#comments li {
+
+	border-bottom: 1px solid #d9d8d9;
+	font-size: 16px;
+	list-style: none;
+	margin: 0px auto;
+	padding: 10px 50px;
+	text-align: left;
+	width: 700px;
+
+}
+
+#comments li.odd {
+	background: #e4e4e4;
+}
+
+#comments li span
+#comments li p {
+
+	text-align: left
+
+}
+
+
+#comments li span.name ,
+#comments li span.date {
+
+	color: #959595;
+
+}
+
+#comments li span.date {
+
+	float:right;
+}
+

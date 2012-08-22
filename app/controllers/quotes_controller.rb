@@ -1,20 +1,40 @@
 class QuotesController < ApplicationController
   
   respond_to :html, :json
+
+  # @see http://www.arctickiwi.com/blog/mobile-enable-your-ruby-on-rails-site-for-small-screens
+  private
+  MOBILE_BROWSERS = ["android", "ipod", "opera mini", "iphone", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
+  public
+
+  def detect_browser
+    agent = request.headers["HTTP_USER_AGENT"].downcase
+
+    MOBILE_BROWSERS.each do |m|
+      return "mobile_application" if agent.match(m)
+    end
+    return "application"
+  end
+
   
   # GET /quotes/1 - 
   # GET /quotes/1.json - Used by iPhone
   def show
     @quote = Quote.find(params[:id])
 
-
     Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
-
+    Rails.logger.warn detect_browser
     respond_to do |format|
-      format.html # show.html.erb
+      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1"  ) 
+         template = "quotes/show_mobile.html.erb" ;
+      else
+         template = "quotes/show.html.erb" ;
+      end
+      format.html { render :template => template }
       format.json { render json: @quote }
     end
   end
+
 
   # GET Called from iPhone to get history for a given email address
   def history

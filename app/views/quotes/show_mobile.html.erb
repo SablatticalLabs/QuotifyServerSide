@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @quote.speaker.name %>'s quote | Quotify.it </title>
+    <link media="screen" type="text/css" href="../Assets/Styles/960.css" rel="stylesheet" />
+    <link media="screen" type="text/css" href="../Assets/Styles/reset.css" rel="stylesheet" />
+    <link media="screen" type="text/css" href="../Assets/Styles/text.css" rel="stylesheet" />
+    <link media="screen" type="text/css" href="../Assets/Styles/quote_mobile.css" rel="stylesheet" />
+  </head>
+  <body>
+  
+  <div id="top" class='major'>
+    <div id="logo">
+      <a href="/">
+        <img src="../Assets/Images/quote/qit.png" />
+      </a>
+    </div>
+    <div id="quote">
+
+      <div id="inner">
+        <p id="text">
+          <%= @quote.quote_text %>
+        </p>
+
+
+    </div>
+
+    <div id="thumbnail">
+      <% if @quote.quote_images.blank? %> 
+        <img src="../Assets/Images/quote/avatar.jpg" />
+      <% else %>
+        <%= image_tag "/quote_images/#{@quote.quote_images.first.file_name}" %>
+      <% end %>
+    </div>
+    <div id="deets">
+      <span id="speaker">
+        <%= @quote.speaker.name %>
+      </span>
+      with 
+      <span class="witness quotifier">
+        <%= @quote.quotifier.name %>
+      </span>
+      <% @quote.witnesses.each do |witness| %> 
+         ,<span class="witness">
+            <%= "#{witness[:name]}" %>
+         </span>
+      <% end %>
+     <!-- at <span id="time"><%= @quote.quote_time %></span> -->
+    </div>
+  </div>
+
+
+  </div>
+
+
+
+  <div id="comments" class='major'>
+
+  <form id="submitcomment" action="" type="post" >
+    <input type="text" name="comment" placeholder="Type your comment here.." />
+    <input type="submit" name="submit" value="comment" />
+  </form>
+
+  <ul>
+    <li>
+        <span class="name">
+          Markus Thomas
+        </span>
+        <span class="date">
+          April 20, 2012 at 3:10 pm
+        </span>
+        <p class="quote">
+          Holy hell! That’s a fucking hilarious quote!!
+        </p>
+    </li>
+    <li class="odd">
+        <span class="name">
+          Markus Thomas
+        </span>
+        <span class="date">
+          April 20, 2012 at 3:10 pm
+        </span>
+        <p class="quote">
+          Holy hell! That’s a fucking hilarious quote!!
+        </p>
+    </li>
+    <li>
+        <span class="name">
+          Markus Thomas
+        </span>
+        <span class="date">
+          April 20, 2012 at 3:10 pm
+        </span>
+        <p class="quote">
+          Holy hell! That’s a fucking hilarious quote!!
+        </p>
+    </li>
+    <li class="odd">
+        <span class="name">
+          Markus Thomas
+        </span>
+        <span class="date">
+          April 20, 2012 at 3:10 pm
+        </span>
+        <p class="quote">
+          Holy hell! That’s a fucking hilarious quote!!
+        </p>
+    </li>
+  </ul>
+
+  </div>
+
+  
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js?ver=1.4.3'></script>  <!- Start Google Analytics -> 
+  <script type='text/javascript' src='../Assets/Scripts/jquery.simplemodal.js'></script>
+  <script type='text/javascript' src='../Assets/Scripts/index.js'></script>
+  <script type="text/javascript">
+  
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22784176-1']);
+    _gaq.push(['_trackPageview']);
+  
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  
+  </script>
+  <!- End Google Analytics -> 
+  
+
+  <!-- start Mixpanel --><script type="text/javascript">(function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+'//api.mixpanel.com/site_media/js/api/mixpanel.2.js';d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==
+typeof f?g=a[f]=[]:f="mixpanel";g.people=g.people||[];h="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config people.set people.increment".split(" ");for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.1})(document,window.mixpanel||[]);
+mixpanel.init("10db5716f34ad4fa4aead789301c232b");</script><!-- end Mixpanel -->
+  
+<script type="text/javascript">
+    mixpanel.track("Quotes Page Pageview")
+</script>
+
+  </body>
+
+</html>
