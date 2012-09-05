@@ -10,6 +10,9 @@ set :output, "log/scheduled_tasks.log"
 every 2.hours do
   runner "Quote.ready_to_send_message.each { |q|  q.send_messages }"
 end
+every 2.hours do
+  runner "Quote.ready_to_test_for_dupes.each { |q|  q.deleteDupes }"
+end
 #
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
