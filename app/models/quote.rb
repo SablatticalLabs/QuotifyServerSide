@@ -51,7 +51,7 @@ class Quote < ActiveRecord::Base
   def deleteDupes
     Rails.logger.debug "checking for deleted quotes on  " + self.id
 
-    quotes = Quote.where( " quote_text = ? AND speaker_user_id = ? AND id != ? AND created_at > ? and (deleted != 1 AND deleted is not null) " , self.quote_text, self.speaker_user_id, self.id, self.created_at )
+    quotes = Quote.where( " quote_text = ? AND speaker_user_id = ? AND id != ? AND created_at > ? and (deleted != ? AND deleted is not null) " , self.quote_text, self.speaker_user_id, self.id, self.created_at, true )
     Rails.logger.debug "deleting " + quotes.length.to_s + " objs "
     quotes.each do | quote |     
       Rails.logger.debug "deleting ID " + quote.id
