@@ -1,3 +1,4 @@
+
 class QuotesController < ApplicationController
   
   respond_to :html, :json
@@ -57,7 +58,7 @@ class QuotesController < ApplicationController
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
     respond_to do |format|
-      format.json { render json: {quote_history: @quotes }}
+      format.json { render json: {quote_history: @quotes.sort{|a,b| b.created_at <=> a.created_at} }}
     end
   end
 
