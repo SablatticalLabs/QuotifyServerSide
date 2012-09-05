@@ -1,0 +1,24 @@
+<%=form_for @comment, :url=> quote_comments_url(@quote.id) do |f|%>
+
+<% if flash[:notice] %>
+    <div id="error_explanation">
+      <%= flash[:notice] %> 
+    </div>
+<% end %>
+
+
+  <div class="field">
+    <%= f.label :comment_text %><br />
+    <%= f.text_field :comment_text %>
+  </div>
+
+  <div class="field">
+    <%= f.label :commenter_name %><br />
+    <%= f.text_field :commenter_name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
