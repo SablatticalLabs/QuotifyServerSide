@@ -6,7 +6,7 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.order("quote_time desc")
+    @quotes = Quote.where(" deleted = 0 or deleted IS NULL ").order("quote_time desc")
 
     Mpanel.track("Admin Main Page View", { :user=> request.remote_ip })
 
