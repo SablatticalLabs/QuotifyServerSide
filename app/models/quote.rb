@@ -9,6 +9,7 @@ class Quote < ActiveRecord::Base
   has_many :quote_witness_users
   has_many :witnesses, :through => :quote_witness_users
   has_many :quote_images
+  has_many :comments
   validates_presence_of :quotifier, :speaker, :quote_text
   validates_associated :quotifier, :speaker
 
