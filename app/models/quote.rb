@@ -12,7 +12,7 @@ class Quote < ActiveRecord::Base
   validates_presence_of :quotifier, :speaker, :quote_text
   validates_associated :quotifier, :speaker
 
-  scope :ready_to_test_for_dupes, where(" created_at > ? ", 2.hours.ago )
+  scope :ready_to_test_for_dupes, where(" created_at > ? and (deleted = true or deleted is null) ", 2.hours.ago )
   scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ? and (deleted = ? or deleted is null)", false, Time.now, false)
   scope :not_deleted, where("deleted = ? or deleted is null", false)
 
@@ -51,11 +51,11 @@ class Quote < ActiveRecord::Base
   def deleteDupes
     Rails.logger.debug "checking for deleted quotes on  " + self.id
 
-    quotes = Quote.where( " quote_text = ? AND speaker_user_id = ? AND id != ? AND created_at > ? " , self.quote_text, self.speaker_user_id, self.id, self.created_at )
+    quotes = Quote.where( " quote_text = ? AND speaker_user_id = ? AND id != ? AND created_at > ? and (deleted = true or deleted is null) " , self.quote_text, self.speaker_user_id, self.id, self.created_at )
     Rails.logger.debug "deleting " + quotes.length.to_s + " objs "
     quotes.each do | quote |     
       Rails.logger.debug "deleting ID " + quote.id
-      quote.deleted = true
+      quote.deleted = 1
       quote.save
       end
 
