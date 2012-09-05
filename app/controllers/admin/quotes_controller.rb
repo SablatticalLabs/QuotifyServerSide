@@ -81,4 +81,5 @@ class Admin::QuotesController < ApplicationController
     redirect_to action: "index"
   end
 
+
 end
