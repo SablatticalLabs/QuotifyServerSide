@@ -14,14 +14,23 @@ class Quote < ActiveRecord::Base
   validates_associated :quotifier, :speaker
 
   #When showing a quote, we're able to establish this virtual attribute by determining which path the user took to get to the quote. 
+  #This is a string with the user's name
   attr_accessor :accessing_user
+
+  #When showing quote history, our view of the quote is shaped by who we are.  
+  #For example, if we're a quotifier, we can delete the quote if it's not too old
+  attr_accessor :accessing_user_role
+
+  #This is the User object for the accessing user
+  attr_accessor :accessing_user_obj
+ 
 
   scope :ready_to_test_for_dupes, where(" created_at > ? and (deleted != 1 AND deleted is not null) ", 2.hours.ago )
   scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ? and (deleted = ? or deleted is null)", false, Time.now, false)
   scope :not_deleted, where("deleted = ? or deleted is null", false)
 
   def is_deletable?
-    self.created_at + 1.day > Time.now 
+    if (self.created_at + 1.day > Time.now) && accessing_user_role == :quotifier then true else false end
   end
 
   #Send out email, or if we only have phone number, send text message, to quotifier, speaker, and witnesses
@@ -69,7 +78,7 @@ class Quote < ActiveRecord::Base
 
   #The JSON returned for a quote should include details on the speaker 
   def as_json(options={})
-    super(:include => [:speaker], :methods => [:is_deletable?])
+    super(:include => [:speaker], :methods => [:is_deletable?, :personalized_quote_id])
   end
 
   def set_user_quote_ids
@@ -95,6 +104,14 @@ class Quote < ActiveRecord::Base
     elsif quote = ((qwu = QuoteWitnessUser.find_by_witness_quote_id(id)) ? qwu.quote : nil) then quote.tap{|q| q.accessing_user = qwu.witness.name} 
     end
 
+  end
+
+  def personalized_quote_id
+    if accessing_user_role == :quotifier then quotifier_quote_id
+    elsif accessing_user_role == :speaker then speaker_quote_id
+    elsif accessing_user_role == :witness
+      QuoteWitnessUser.find_by_quote_id_and_user_id(self.id, accessing_user_obj).witness_quote_id
+    end
   end
 
   private
