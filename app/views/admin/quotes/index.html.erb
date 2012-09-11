@@ -11,8 +11,9 @@
     <th>Quotifier</th>
     <th>Error?</th>
     <th>Deleted</th>
-    <th>Send Messages Now<th>
+    <th>Send Messages Now</th>
     <th>Edit</th>
+    <th># Comments</th>
   </tr>
 
 <% @quotes.each do |quote| %>
@@ -28,6 +29,7 @@
     <td><%= quote.deleted %> </td>
     <td><%= link_to 'Send Messages Now', admin_quote_send_messages_now_path(quote) %></td>
     <td><%= link_to 'Edit', edit_admin_quote_path(quote) %></td>
+    <td><%= quote.comments.length %> </td>
   </tr>
 <% end %>
 </table>
