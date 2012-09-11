@@ -14,7 +14,7 @@
 	  		<td  style="padding: 30px 0px; font-family:'Providence';" valign='bottom'>
 			    <p>Remember a few weeks ago, when you were with <%=@quote.speaker.name%>?</p>
 			    <p>Well, <i>apparently</i>, <%=@quote.speaker.name%> said something quote-worthy. At <%= @quote.quote_time %>, to be exact.</p>
-			    <p>Memory a little hazy?   Well, you're in luck, because <%= @quote.quotifier.name %> <i>quotified it</i>, & this quote was just unlocked -- So saddle up, and <a style="color:#6f868e;" href="http://quotify.it/<%=@quote.id%>">click here to check it out!</a> </p>
+			    <p>Memory a little hazy?   Well, you're in luck, because <%= @quote.quotifier.name %> <i>quotified it</i>, & this quote was just unlocked -- So saddle up, and <a style="color:#6f868e;" href="http://quotify.it/<%=@quote.quotifier_quote_id%>">click here to check it out!</a> </p>
 	  		</td>
 	  	</table>
 	  </div>
