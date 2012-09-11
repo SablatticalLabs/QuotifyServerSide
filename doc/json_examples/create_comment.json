@@ -1,0 +1,5 @@
+http POST localhost:3000/quotes/Yzg4YWM/comments <<END
+{
+  "comment": { "comment_text": "hello world"}
+}
+END

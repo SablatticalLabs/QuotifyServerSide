@@ -21,12 +21,13 @@ class QuotesController < ApplicationController
   # GET /quotes/1 - 
   # GET /quotes/1.json - Used by iPhone
   def show
-    @quote = Quote.find(params[:id])
+    @quote = Quote.find_by_any_id(params[:id])
+
 
     Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
     Rails.logger.warn detect_browser
     respond_to do |format|
-      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1"  ) 
+      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1" || 1 ) 
          template = "quotes/show_mobile.html.erb" ;
       else
          template = "quotes/show.html.erb" ;
@@ -53,7 +54,11 @@ class QuotesController < ApplicationController
   def history
     users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
-    users.each { |user| @quotes |= user.quotified_quotes.merge(Quote.not_deleted) }
+    users.each { |user| 
+      @quotes |= user.quotified_quotes.merge(Quote.not_deleted)
+      @quotes |= user.spoken_quotes.merge(Quote.not_deleted)
+      @quotes |= user.witnessed_quotes.merge(Quote.not_deleted)
+       }
 
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 

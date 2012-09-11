@@ -9,8 +9,12 @@ class Quote < ActiveRecord::Base
   has_many :quote_witness_users
   has_many :witnesses, :through => :quote_witness_users
   has_many :quote_images
+  has_many :comments
   validates_presence_of :quotifier, :speaker, :quote_text
   validates_associated :quotifier, :speaker
+
+  #When showing a quote, we're able to establish this virtual attribute by determining which path the user took to get to the quote. 
+  attr_accessor :accessing_user
 
   scope :ready_to_test_for_dupes, where(" created_at > ? and (deleted != 1 AND deleted is not null) ", 2.hours.ago )
   scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ? and (deleted = ? or deleted is null)", false, Time.now, false)
@@ -28,15 +32,16 @@ class Quote < ActiveRecord::Base
     unless speaker.email.blank?
       QuoteMailer.speaker_email(self).deliver
     else
-      send_status = send_twillio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{id}")
+      send_status = send_twillio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{speaker_quote_id}")
       send_errors << send_status unless send_status == 'Success'
     end
 
-    witnesses.each do |witness|
+    quote_witness_users.each do |quote_witness|
+      witness  = quote_witness.witness
       unless witness.email.blank?
-        QuoteMailer.witness_email(self, witness).deliver
+        QuoteMailer.witness_email(self, witness, quote_witness).deliver
       else
-       send_status = send_twillio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{id}")
+       send_status = send_twillio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{quote_witness.witness_quote_id}")
        send_errors << send_status unless send_status == 'Success'
       end
     end
@@ -81,6 +86,15 @@ class Quote < ActiveRecord::Base
       possible_id = Base64.encode64(UUIDTools::UUID.random_create)[0..7]
     end
     possible_id
+  end
+
+  def self.find_by_any_id(id)
+    if quote = Quote.find_by_id(id) then quote.tap {|q| q.accessing_user = 'Anonymous'} 
+    elsif quote = Quote.find_by_quotifier_quote_id(id) then quote.tap{|q| q.accessing_user = quote.quotifier.name} 
+    elsif quote = Quote.find_by_speaker_quote_id(id) then  quote.tap{|q| q.accessing_user =  quote.speaker.name} 
+    elsif quote = ((qwu = QuoteWitnessUser.find_by_witness_quote_id(id)) ? qwu.quote : nil) then quote.tap{|q| q.accessing_user = qwu.witness.name} 
+    end
+
   end
 
   private
