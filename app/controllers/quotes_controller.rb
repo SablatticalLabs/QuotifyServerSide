@@ -21,7 +21,7 @@ class QuotesController < ApplicationController
   # GET /quotes/1 - 
   # GET /quotes/1.json - Used by iPhone
   def show
-   @quote = Quote.find_by_any_id(params[:id])
+    @quote = Quote.find_by_any_id(params[:id])
 
 
     Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
