@@ -27,7 +27,7 @@ class QuotesController < ApplicationController
     Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
     Rails.logger.warn detect_browser
     respond_to do |format|
-      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1"  ) 
+      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1" || 1 ) 
          template = "quotes/show_mobile.html.erb" ;
       else
          template = "quotes/show.html.erb" ;
