@@ -89,7 +89,7 @@ class Quote < ActiveRecord::Base
   end
 
   def self.find_by_any_id(id)
-    if quote = Quote.find_by_id(id) then quote.tap {|q| q.accessing_user = 'Unknown User'} 
+    if quote = Quote.find_by_id(id) then quote.tap {|q| q.accessing_user = 'Anonymous'} 
     elsif quote = Quote.find_by_quotifier_quote_id(id) then quote.tap{|q| q.accessing_user = quote.quotifier.name} 
     elsif quote = Quote.find_by_speaker_quote_id(id) then  quote.tap{|q| q.accessing_user =  quote.speaker.name} 
     elsif quote = ((qwu = QuoteWitnessUser.find_by_witness_quote_id(id)) ? qwu.quote : nil) then quote.tap{|q| q.accessing_user = qwu.witness.name} 
