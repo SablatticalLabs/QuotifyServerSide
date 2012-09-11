@@ -54,7 +54,11 @@ class QuotesController < ApplicationController
   def history
     users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
-    users.each { |user| @quotes |= user.quotified_quotes.merge(Quote.not_deleted) }
+    users.each { |user| 
+      @quotes |= user.quotified_quotes.merge(Quote.not_deleted)
+      @quotes |= user.spoken_quotes.merge(Quote.not_deleted)
+      @quotes |= user.witnessed_quotes.merge(Quote.not_deleted)
+       }
 
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
