@@ -54,58 +54,31 @@
 
   <div id="comments" class='major'>
 
-  <form id="submitcomment" action="" type="post" >
-    <input type="text" name="comment" placeholder="Type your comment here.." />
+  <form id="submitcomment" action="../../../../quotes/<%=@quote.id%>/comments" method="post" >
+    <input type="hidden" name="comment[commenter_name]" value="<%=@quote.accessing_user%>" />
+    <input type="text" name="comment[comment_text]" placeholder="Type your comment here.." />
     <input type="submit" name="submit" value="comment" />
   </form>
 
   <ul>
-    <!--
-    <li class="even">
+    <% if @quote.comments.length == 0 %>
+    <li class="nocomments">
+        No comments yet.  Add yours above!
+    </li>
+    <% end %>
+    <% @quote.comments.each_with_index do | comment,i | %>
+    <li class="<%= i % 2 == 1 ? 'even' : 'odd' %>">
         <span class="name">
-          Markus Thomas
+          <%= comment.commenter_name %>
         </span>
         <span class="date">
-          April 20, 2012 at 3:10 pm
+          <%= comment.created_at %> 
         </span>
         <p class="quote">
-          Holy hell! That’s a fucking hilarious quote!!
+          <%= comment.comment_text %>
         </p>
     </li>
-    <li class="odd">
-        <span class="name">
-          Markus Thomas
-        </span>
-        <span class="date">
-          April 20, 2012 at 3:10 pm
-        </span>
-        <p class="quote">
-          Holy hell! That’s a fucking hilarious quote!!
-        </p>
-    </li>
-    <li class="even">
-        <span class="name">
-          Markus Thomas
-        </span>
-        <span class="date">
-          April 20, 2012 at 3:10 pm
-        </span>
-        <p class="quote">
-          Holy hell! That’s a fucking hilarious quote!!
-        </p>
-    </li>
-    <li class="odd">
-        <span class="name">
-          Markus Thomas
-        </span>
-        <span class="date">
-          April 20, 2012 at 3:10 pm
-        </span>
-        <p class="quote">
-          Holy hell! That’s a fucking hilarious quote!!
-        </p>
-    </li>
-  -->
+    <% end %>
   </ul>
 
   </div>
