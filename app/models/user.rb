@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
   end
 
   def same_email_or_phone_as(other)
-    self.email.downcase == other.email.downcase || self.phone == other.phone
+    ( !self.email.blank? and !other.email.blank? and self.email.downcase == other.email.downcase ) || 
+    ( !self.phone.blank? and !other.phone.blank? and self.phone == other.phone )
   end
   
 end
