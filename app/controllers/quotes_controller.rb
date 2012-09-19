@@ -39,7 +39,7 @@ class QuotesController < ApplicationController
 
   #Called by a DELETE HTTP call to /quotes/:id
   def destroy
-    quote = Quote.find(params[:id])
+    quote = Quote.find_by_any_id(params[:id])
     if quote.is_deletable? then
       quote.deleted = true
       quote.save
@@ -54,14 +54,16 @@ class QuotesController < ApplicationController
   def history
     users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
+
+    #Really would like to push this logic of knowing who the accessing user is, into the models, but need to figure that out.
+    #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
     users.each { |user| 
-      @quotes |= user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_role = :quotifier; r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
-      @quotes |= user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_role = :speaker; r.accessing_user_obj = user}}
-      @quotes |= user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_role = :witness; r.accessing_user_obj = user}}
+      @quotes |= user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
+      @quotes |= user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+      @quotes |= user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
        }
 
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
-
 
     respond_to do |format|
       format.json { render json: {quote_history: @quotes.sort{|a,b| b.created_at <=> a.created_at} }}
