@@ -13,14 +13,6 @@ class Quote < ActiveRecord::Base
   validates_presence_of :quotifier, :speaker, :quote_text
   validates_associated :quotifier, :speaker
 
-  #When showing a quote, we're able to establish this virtual attribute by determining which path the user took to get to the quote. 
-  #This is a string with the user's name
-  attr_accessor :accessing_user
-
-  #When showing quote history, our view of the quote is shaped by who we are.  
-  #For example, if we're a quotifier, we can delete the quote if it's not too old
-  attr_accessor :accessing_user_role
-
   #This is the User object for the accessing user
   attr_accessor :accessing_user_obj
  
@@ -98,10 +90,10 @@ class Quote < ActiveRecord::Base
   end
 
   def self.find_by_any_id(id)
-    if quote = Quote.find_by_id(id) then quote.tap {|q| q.accessing_user = 'Anonymous'} 
-    elsif quote = Quote.find_by_quotifier_quote_id(id) then quote.tap{|q| q.accessing_user = quote.quotifier.name} 
-    elsif quote = Quote.find_by_speaker_quote_id(id) then  quote.tap{|q| q.accessing_user =  quote.speaker.name} 
-    elsif quote = ((qwu = QuoteWitnessUser.find_by_witness_quote_id(id)) ? qwu.quote : nil) then quote.tap{|q| q.accessing_user = qwu.witness.name} 
+    if quote = Quote.find_by_id(id) then quote.tap {|q| q.accessing_user_obj = nil} 
+    elsif quote = Quote.find_by_quotifier_quote_id(id) then quote.tap{|q| q.accessing_user_obj = quote.quotifier} 
+    elsif quote = Quote.find_by_speaker_quote_id(id) then  quote.tap{|q| q.accessing_user_obj =  quote.speaker} 
+    elsif quote = ((qwu = QuoteWitnessUser.find_by_witness_quote_id(id)) ? qwu.quote : nil) then quote.tap{|q| q.accessing_user_obj = qwu.witness} 
     end
 
   end
@@ -111,6 +103,15 @@ class Quote < ActiveRecord::Base
     elsif accessing_user_role == :speaker then speaker_quote_id
     elsif accessing_user_role == :witness
       QuoteWitnessUser.find_by_quote_id_and_user_id(self.id, accessing_user_obj).witness_quote_id
+    end
+  end
+
+  #Determine the role of the user who is accessing the quote.  This is important for things like deletability.
+  def accessing_user_role
+    if self.accessing_user_obj.nil? then nil
+    elsif self.quotifier == accessing_user_obj then :quotifier
+    elsif self.speaker == accessing_user_obj then :speaker
+    else witnesses.each {|witness| if witness == accessing_user_obj then return :witness end}
     end
   end
 
