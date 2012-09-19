@@ -58,10 +58,18 @@ class QuotesController < ApplicationController
     #Really would like to push this logic of knowing who the accessing user is, into the models, but need to figure that out.
     #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
     users.each { |user| 
-      @quotes |= user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
-      @quotes |= user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
-      @quotes |= user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
-       }
+      @quotes += user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
+      @quotes += user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+      @quotes += user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+    }
+
+    #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
+    #since the quotifier one has more rights (importantly, to delete the quote)
+    @quotes.each do |q1| 
+      if q1.accessing_user_role == :quotifier
+        @quotes.delete_if{|q2| q1.id == q2.id and q2.accessing_user_role == :speaker }
+      end
+    end 
 
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
