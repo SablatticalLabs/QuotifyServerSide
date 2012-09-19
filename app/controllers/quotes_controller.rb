@@ -62,7 +62,7 @@ class QuotesController < ApplicationController
       @quotes |= user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
       @quotes |= user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
        }
-
+     binding.pry
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
     respond_to do |format|

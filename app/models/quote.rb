@@ -2,6 +2,7 @@ class Quote < ActiveRecord::Base
   include UuidHelper  #Use 6-character string as ID
   before_create :set_uuid
   before_create :set_user_quote_ids 
+  before_save :remove_same_user_listed_more_than_once
   self.primary_key = 'id'
 
   belongs_to :speaker, :class_name => "User", :foreign_key => "speaker_user_id"
@@ -127,6 +128,14 @@ class Quote < ActiveRecord::Base
       error_message.to_s
     else
       'Success'
+    end
+  end
+
+  def remove_same_user_listed_more_than_once
+    self.witnesses.each do |witness|
+      if self.quotifier.same_email_or_phone_as(witness) || self.speaker.same_email_or_phone_as(witness)
+        self.witnesses.delete(witness) 
+      end
     end
   end
 
