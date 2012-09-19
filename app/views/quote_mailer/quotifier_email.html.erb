@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <body style="background-color:#f9f9f9; text-align: center; padding-top: 40px; ">
-	<a style='margin-left:600px; padding: 10px 0px;' href="http://quotify.it/download.html">
-		<img src="http://quotify.it/Assets/Images/lp/getapp_.png" />
-	</a>
-	<div style="width:700px; background-color: white; margin: 10px auto; text-align: left; padding: 20px 10px 10px 0px; height: 300px;" >
+  <body style="background-color:#f9f9f9; text-align: center; padding-top: 20px; ">
+	<div style="width:700px; background-color: white; margin: 10px auto; text-align: left; padding: 20px 10px 10px 0px; height: 500px;" >
+		<a style='float:right; margin: -10px 10px; padding: 10px 0px;' href="http://quotify.it/<%=@quote.quotifier_quote_id%>">
+			<img src="http://quotify.it/Assets/Images/emails/qit.png" />
+		</a>
+		<br style="clear:both" />
 	  	<table >
+	  	<tr>
 	  		<td>
-	  			<a href="http://quotify.it/<%=@quote.id%>">
+	  			<a href="http://quotify.it/<%=@quote.quotifier_quote_id%>">
 		  			<img src="http://quotify.it/Assets/Images/emails/left.png"/>
 		  		</a>
 	  		</td>
-	  		<td  style="padding: 30px 0px; font-family:'Providence';" valign='bottom'>
+	  		<td  style="padding: 10px 0px 0px; font-family:'Providence';" valign='bottom'>
+	  			<h3 style="color:#626262; font-size:24px; font-weight:normal; "> Your <span style="color:#7fa6b7;">quotify quote</span> has arrived.</h3>
 			    <p>Remember a few weeks ago, when you were with <%=@quote.speaker.name%>?</p>
 			    <p>Well, <i>apparently</i>, <%=@quote.speaker.name%> said something quote-worthy. At <%= @quote.quote_time %>, to be exact.</p>
 			    <p>Memory a little hazy?   Well, you're in luck, because <%= @quote.quotifier.name %> <i>quotified it</i>, & this quote was just unlocked -- So saddle up, and <a style="color:#6f868e;" href="http://quotify.it/<%=@quote.quotifier_quote_id%>">click here to check it out!</a> </p>
 	  		</td>
+	  	</tr>
+	  	<tr>
+	  		<td colspan=2>
+	  	<div style="text-align:center; width:100%">
+  			<a href="http://quotify.it/<%=@quote.quotifier_quote_id%>">
+	  			<img src="http://quotify.it/Assets/Images/emails/seequote.png"/>
+	  		</a>
+	  	</div>
+	  		</td>
+	  	</tr>
 	  	</table>
+
+
 	  </div>
   	<p style="padding: 10px 0px; font-family:'Providence'; font-size: 10px; width:700px;  margin: 0px auto; text-align: left;">
   		You are receiving this email because <%= @quote.quotifier.name %> tagged you in a quote.  We won't do it again unless they tag you again, but, you can <a style="color:#6f868e;" href="http://quotify.it/?unsubscribe">click here to unsubscribe</a>
