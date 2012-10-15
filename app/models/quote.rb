@@ -110,6 +110,10 @@ class Quote < ActiveRecord::Base
     end
   end
 
+  def get_personalized_quote_id_for(user)
+    #TODO: Fill in
+  end
+
   #Determine the role of the user who is accessing the quote.  This is important for things like deletability.
   def accessing_user_role
     if self.accessing_user_obj.nil? then nil
