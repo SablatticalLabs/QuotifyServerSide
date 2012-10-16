@@ -44,3 +44,5 @@ gem 'twilio-ruby'
 gem 'uuidtools'
 gem 'pry-rails', :group => :development
 gem 'whenever', :require => false
+
+gem 'newrelic_rpm'

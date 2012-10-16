@@ -9,5 +9,4 @@ module UuidHelper
     self.id = possible_id
   end
 
-
 end

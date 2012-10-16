@@ -29,4 +29,14 @@ class User < ActiveRecord::Base
     cur_user.update_attributes(user)
     return cur_user
   end
+
+  def self.find_all_by_email_case_insensitive(e)
+    where "lower(email)= ?", e.downcase
+  end
+
+  def same_email_or_phone_as(other)
+    ( !self.email.blank? and !other.email.blank? and self.email.downcase == other.email.downcase ) || 
+    ( !self.phone.blank? and !other.phone.blank? and self.phone == other.phone )
+  end
+  
 end

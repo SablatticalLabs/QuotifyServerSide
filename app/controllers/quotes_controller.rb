@@ -1,26 +1,80 @@
+
 class QuotesController < ApplicationController
   
   respond_to :html, :json
+
+  # @see http://www.arctickiwi.com/blog/mobile-enable-your-ruby-on-rails-site-for-small-screens
+  private
+  MOBILE_BROWSERS = ["android", "ipod", "opera mini", "iphone", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
+  public
+
+  def detect_browser
+    agent = request.headers["HTTP_USER_AGENT"].downcase
+
+    MOBILE_BROWSERS.each do |m|
+      return "mobile_application" if agent.match(m)
+    end
+    return "application"
+  end
+
   
   # GET /quotes/1 - 
   # GET /quotes/1.json - Used by iPhone
   def show
-    @quote = Quote.find(params[:id])
+    @quote = Quote.find_by_any_id(params[:id])
 
+
+    Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
+    Rails.logger.warn detect_browser
     respond_to do |format|
-      format.html # show.html.erb
+      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1" || 1 ) 
+         template = "quotes/show_mobile.html.erb" ;
+      else
+         template = "quotes/show.html.erb" ;
+      end
+      format.html { render :template => template }
       format.json { render json: @quote }
     end
   end
 
+  #Called by a DELETE HTTP call to /quotes/:id
+  def destroy
+    quote = Quote.find_by_any_id(params[:id])
+    if quote.is_deletable? then
+      quote.deleted = true
+      quote.save
+      render json: { deleted: true}
+    else
+      render json: { deleted: false, error: "Quote is not deletable"}
+    end
+  end
+
+
   # GET Called from iPhone to get history for a given email address
   def history
-    users = User.find_all_by_email(params[:email])
+    users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
-    users.each { |user| @quotes |= user.quotified_quotes }
+
+    #Really would like to push this logic of knowing who the accessing user is, into the models, but need to figure that out.
+    #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
+    users.each { |user| 
+      @quotes += user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
+      @quotes += user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+      @quotes += user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+    }
+
+    #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
+    #since the quotifier one has more rights (importantly, to delete the quote)
+    @quotes.each do |q1| 
+      if q1.accessing_user_role == :quotifier
+        @quotes.delete_if{|q2| q1.id == q2.id and q2.accessing_user_role == :speaker }
+      end
+    end 
+
+    Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
     respond_to do |format|
-      format.json { render json: {quote_history: @quotes }}
+      format.json { render json: {quote_history: @quotes.sort{|a,b| b.created_at <=> a.created_at} }}
     end
   end
 
@@ -29,6 +83,8 @@ class QuotesController < ApplicationController
   def create
     #TO DO: Right now, just creating a new user every time.  If we stick with this, then really dont need user model at all.  
     #If we do somehow look people up, need to make logic smarter somehow.
+
+
     speaker = User.create(params[:quote][:speaker])  
     quotifier = User.create(params[:quote][:quotifier]) 
     witnesses = params[:quote][:witnesses].map {|witness| User.create(witness)} if params[:quote][:witnesses] 
@@ -38,6 +94,8 @@ class QuotesController < ApplicationController
     #This is currently only set to go between 6 and 11 days after the message is received, at 2PM EST.
     messages_send_scheduled_time = Time.parse((Date.today + (rand(5) + 6).days).to_s + " 02:00PM") 
     messages_send_scheduled_time = Date.yesterday if params[:schedule_in_past_flag] 
+
+    Mpanel.track("Create Quote", { :user=> request.remote_ip , :speaker => params[:quote][:speaker], :quotifier => params[:quote][:quotifier] })
 
     messages_sent_flag = params[:quote][:messages_sent_flag] || false
 

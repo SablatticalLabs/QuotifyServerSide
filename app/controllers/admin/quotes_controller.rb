@@ -6,7 +6,9 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.order("quote_time desc")
+    @quotes = Quote.where(" deleted = ? or deleted IS NULL ", false).order("quote_time desc")
+
+    Mpanel.track("Admin Main Page View", { :user=> request.remote_ip })
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,6 +22,8 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.new
     @quote.quotifier = User.new
     @quote.speaker = User.new
+
+    Mpanel.track("New Quote Via Admin", { :user=> request.remote_ip })
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +45,8 @@ class Admin::QuotesController < ApplicationController
     quotifier = User.find_or_create(params[:quote][:quotifier])
     messages_send_scheduled_time = if params[:schedule_in_past_flag] then Date.yesterday else @quote.messages_send_scheduled_time end 
 
+    Mpanel.track("Update Quote Via Admin", { :user=> request.remote_ip })
+
     respond_to do |format|
       if @quote.update_attributes(params[:quote].except(:speaker, :quotifier).merge({:speaker=>speaker, :quotifier=>quotifier, :messages_send_scheduled_time => messages_send_scheduled_time}))
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
@@ -58,6 +64,8 @@ class Admin::QuotesController < ApplicationController
     @quote = Quote.find(params[:id])
     @quote.destroy
 
+    Mpanel.track("Delete Quote Via Admin", { :user=> request.remote_ip })
+
     respond_to do |format|
       format.html { redirect_to quotes_url }
       format.json { head :ok }
@@ -65,9 +73,13 @@ class Admin::QuotesController < ApplicationController
   end
 
   def send_messages_now
+
+    Mpanel.track("Send Messages Via Admin", { :user=> request.remote_ip , :quote_id => params[:quote_id] })
+
     @quote = Quote.find(params[:quote_id])
     @quote.send_messages
     redirect_to action: "index"
   end
+
 
 end

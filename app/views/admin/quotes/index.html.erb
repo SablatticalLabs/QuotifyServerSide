@@ -9,14 +9,11 @@
     <th>Images</th>
     <th>Speaker</th>
     <th>Quotifier</th>
-    <th>Witnesses</th>
-    <th>Location</th>
-    <th>Coordinates</th>
-    <th>Messages Scheduled Time</th>
-    <th>Messages Sent?</th>
-    <th>Send Messages Now<th>
-    <th></th>
-    <th></th>
+    <th>Error?</th>
+    <th>Deleted</th>
+    <th>Send Messages Now</th>
+    <th>Edit</th>
+    <th># Comments</th>
   </tr>
 
 <% @quotes.each do |quote| %>
@@ -28,13 +25,11 @@
     <td><%= link_to quote.quote_images.count, admin_quote_quote_images_path(quote) %></td>
     <td><%= "#{quote.speaker.name} (#{quote.speaker.email},#{quote.speaker.phone})" %></td>
     <td><%= "#{quote.quotifier.name} (#{quote.quotifier.email},#{quote.quotifier.phone})" %></td>
-    <td><%= quote.witnesses.inject("") {|memo, cur| "#{memo}; #{cur[:name]} (#{cur[:email]},#{cur[:phone]})" } [2..5000] %>
-    <td><%= quote.location %></td>
-    <td><%= quote.coordinate %></td>
-    <td><%= quote.messages_send_scheduled_time %></td>
-    <td><%= quote.messages_sent_flag %> </td>
+    <td><%= quote.error_flag %> </td>
+    <td><%= quote.deleted %> </td>
     <td><%= link_to 'Send Messages Now', admin_quote_send_messages_now_path(quote) %></td>
     <td><%= link_to 'Edit', edit_admin_quote_path(quote) %></td>
+    <td><%= quote.comments.length %> </td>
   </tr>
 <% end %>
 </table>

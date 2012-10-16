@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120610193545) do
+ActiveRecord::Schema.define(:version => 20120905003933) do
+
+  create_table "comments", :force => true do |t|
+    t.string   "comment_text",    :null => false
+    t.string   "quote_id"
+    t.boolean  "email_sent_flag"
+    t.string   "commenter_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "quote_images", :id => false, :force => true do |t|
     t.string   "id"
@@ -27,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20120610193545) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "witness_quote_id"
   end
 
   create_table "quotes", :id => false, :force => true do |t|
@@ -41,6 +51,11 @@ ActiveRecord::Schema.define(:version => 20120610193545) do
     t.string   "coordinate"
     t.datetime "messages_send_scheduled_time"
     t.boolean  "messages_sent_flag"
+    t.boolean  "error_flag"
+    t.string   "error_string"
+    t.string   "quotifier_quote_id"
+    t.string   "speaker_quote_id"
+    t.boolean  "deleted"
   end
 
   create_table "users", :force => true do |t|

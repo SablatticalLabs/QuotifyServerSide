@@ -1,0 +1,230 @@
+body {
+	background-color: white;
+	color: #494949;
+	font: Helvetica;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+
+}
+
+#container{
+
+	margin: 0px auto;
+	width: 1000px;
+
+}
+
+.major {
+
+	width: 100%;
+	position: relative;
+
+}
+
+#top {
+
+	height: 425px;
+	padding-top: 10px;
+	background: url(/Assets/Images/quote/mobile_gradient.png) no-repeat;
+	background-color: #9ab5c0;
+
+}
+
+
+#logo{
+	
+	right: 3%;
+	margin-left: -130px;
+	position: absolute;
+	bottom: 60px;
+	z-index: 10;
+}
+
+
+#quote {
+
+	-webkit-border-radius: 3em;
+	-moz-border-radius: 3em;
+	border-radius: 3em;
+	border: #87969c 1px solid;
+	background: white;
+	min-height: 110px;
+	left: 50%;
+	margin: 0px auto 0px;
+	padding: 15px 0px;
+	top: 40px;
+	width: 900px;
+	-webkit-box-shadow: inset -1px 1px 6px #252e31;
+	-moz-box-shadow: inset -1px 1px 6px #252e31;
+	box-shadow: inset -1px 1px 6px #252e31;
+
+}
+
+#inner {
+
+	font-size: 1.6em;
+	margin: 0px auto;
+	overflow-y: scroll;
+	text-align: center;
+	top: 20px;
+	width: 850px;
+
+}
+
+#inner #text {
+	font-size: 1.8em;
+}
+
+#deets{
+
+	color: #4f4f4f;
+	font-size: 24px;
+	text-align: center;
+	top: 100px;
+
+}
+
+#top #thumbnail {
+
+	-webkit-box-shadow:  0.3em 0.3em 0.3em  #544e42;
+	-moz-box-shadow: 0.3em 0.3em 0.3em  #544e42;
+	-box-shadow: 0.3em 0.3em 0.3em  #544e42;
+	border-bottom: 1px solid #544e42;;
+	border-right: 1px solid #544e42;;
+	background-color: white;
+	left: 50%;
+	margin-left: -170px;
+	padding: 10px;
+	position: absolute;
+	height: 355px;
+	width: 355px;
+	top: 200px;
+
+}
+#top #thumbnail img {
+
+	border: 2px black #544e42;
+	max-height: 335px;
+	max-width: 335px;
+
+}
+
+#middle {
+
+	height: 380px;
+	background-color: #fff;
+
+}
+
+.wrapper {
+
+	margin: 0 auto;
+	position: relative;
+
+}
+
+
+#submitcomment {
+
+	background: white;
+	margin: 10px 0px;
+	width: 100%;
+
+}
+
+#submitcomment input[type="text"] {
+
+	font-size: 40px;
+	height: 42px;
+	width: 700px;
+
+}
+
+#submitcomment input[type="submit"] {
+
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	border: 0em;
+	border-radius: 1em;
+	background-clip: 1em;
+	color: white;
+	cursor: pointer;
+	background: ; /* Old browsers */
+	background: -moz-linear-gradient(top, #719aac 0%, #3a6e89 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#719aac), color-stop(100%,#3a6e89)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #719aac 0%,#3a6e89 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #719aac 0%,#3a6e89 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #719aac 0%,#3a6e89 100%); /* IE10+ */
+	background: linear-gradient(top, #719aac 0%,#3a6e89 100%); /* W3C */
+	filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#719aacIE', endColorstr='#3a6e89IE'); /* IE6 & IE7 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#719aacIE', endColorstr='#3a6e89IE')"; /* IE8 */
+	zoom:1;
+	font-size: 40px;
+	text-transform: capitalize;
+	-webkit-box-shadow: inset -1px 1px 6px #252e31;
+	-moz-box-shadow: inset -1px 1px 6px #252e31;
+	box-shadow: inset -1px 1px 6px #252e31;
+
+}
+
+
+#comments {
+
+	min-height: 300px;
+	margin: 150px auto 20px;
+	text-align: center;
+	width: 100%;
+}
+
+#comments li {
+
+	border-bottom: 1px solid #d9d8d9;
+	font-size: 16px;
+	list-style: none;
+	margin: 0px auto;
+	padding: 10px 50px;
+	text-align: left;
+	width: 840px;
+
+}
+
+#comments li.nocomments {
+
+	border-bottom: none;
+	font-size: 20px;
+
+}
+
+#comments li.odd {
+	background: #e4e4e4;
+}
+
+#comments li.even {
+	background: #f2f2f2;
+}
+
+#comments li span
+#comments li p {
+
+	text-align: left
+
+}
+
+#comments li p {
+
+	color: #000000;
+
+}
+
+#comments li span.name ,
+#comments li span.date {
+
+	color: #959595;
+
+}
+
+#comments li span.date {
+
+	float:right;
+}
+
