@@ -11,11 +11,7 @@
   
   <div id="top" class='major'>
     <div id="logo">
-<<<<<<< HEAD
       <a href="../">
-=======
-      <a href="/">
->>>>>>> master
         <img src="../Assets/Images/quote/qit.png" />
       </a>
     </div>
@@ -31,11 +27,7 @@
 
     <div id="thumbnail">
       <% if @quote.quote_images.blank? %> 
-<<<<<<< HEAD
-        <img src="../Assets/Images/quote/avatar.png" />
-=======
         <img src="../Assets/Images/quote/avatar.jpg" />
->>>>>>> master
       <% else %>
         <%= image_tag "/quote_images/#{@quote.quote_images.first.file_name}" %>
       <% end %>
