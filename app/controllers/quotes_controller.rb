@@ -91,8 +91,8 @@ class QuotesController < ApplicationController
     quote_time = params[:quote][:time] || Time.now
 
     #Set the randomly scheduled time to send the email and text messages to some point in the future.  
-    #This is currently only set to go between 6 and 11 days after the message is received, at 2PM EST.
-    messages_send_scheduled_time = Time.parse((Date.today + (rand(5) + 6).days).to_s + " 02:00PM") 
+    #This is currently only set to go between 7 and 14 days after the message is received, at 2PM EST.
+    messages_send_scheduled_time = Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
     messages_send_scheduled_time = Date.yesterday if params[:schedule_in_past_flag] 
 
     Mpanel.track("Create Quote", { :user=> request.remote_ip , :speaker => params[:quote][:speaker], :quotifier => params[:quote][:quotifier] })
