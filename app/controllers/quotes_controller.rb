@@ -87,7 +87,12 @@ class QuotesController < ApplicationController
 
     speaker = User.create(params[:quote][:speaker])  
     quotifier = User.create(params[:quote][:quotifier]) 
-    witnesses = params[:quote][:witnesses].map {|witness| User.create(witness)} if params[:quote][:witnesses] 
+
+    #Load in all the witnesses.  Since the web form is going to have blank entries for these by default, we want to exclude those entries,
+    #so we do so here by taking out any entries where the name is blank.
+    witnesses = params[:quote][:witnesses].map {|witness| User.create(witness) unless witness[:name].blank?} if params[:quote][:witnesses] 
+    witnesses = witnesses.find_all{|w| not w.nil?}
+
     quote_time = params[:quote][:time] || Time.now
 
     #Set the randomly scheduled time to send the email and text messages to some point in the future.  

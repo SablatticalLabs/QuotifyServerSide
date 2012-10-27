@@ -20,8 +20,9 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes/new.json
   def new
     @quote = Quote.new
-    @quote.quotifier = User.new
-    @quote.speaker = User.new
+    @quote.quotifier = User.new(name: 'Quotifier')
+    @quote.speaker = User.new(name: 'Speaker')
+    2.times {@quote.witnesses << User.new}
 
     Mpanel.track("New Quote Via Admin", { :user=> request.remote_ip })
 
