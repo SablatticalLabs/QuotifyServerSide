@@ -83,8 +83,6 @@ class QuotesController < ApplicationController
   def create
     #TO DO: Right now, just creating a new user every time.  If we stick with this, then really dont need user model at all.  
     #If we do somehow look people up, need to make logic smarter somehow.
-
-
     speaker = User.create(params[:quote][:speaker])  
     quotifier = User.create(params[:quote][:quotifier]) 
 

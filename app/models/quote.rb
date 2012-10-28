@@ -110,8 +110,15 @@ class Quote < ActiveRecord::Base
     end
   end
 
-  def get_personalized_quote_id_for(user)
-    #TODO: Fill in
+  def personalized_quote_id_for(user)
+    if user == self.quotifier then return self.quotifier_quote_id
+    elsif user == self.speaker then return self.speaker_quote_id
+    else 
+      quote_witness_users.each do |qwu|
+        return qwu.witness_quote_id if user == qwu.witness
+      end
+    end
+    return nil  #If we got here, there was no match
   end
 
   #Determine the role of the user who is accessing the quote.  This is important for things like deletability.
