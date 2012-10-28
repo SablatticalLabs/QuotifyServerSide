@@ -2,33 +2,49 @@
 
 <table style="border='1px'">
   <tr>
-    <th>ID</th>
-    <th>Link</th>
+    <th>IDs</th>
+    <th>View Quote As</th>
     <th>Quote text</th>
     <th>Quote time</th>
     <th>Images</th>
-    <th>Speaker</th>
-    <th>Quotifier</th>
-    <th>Error?</th>
+    <th>Users</th>
+    <th>Hatch Messages Sent?</th>
+    <th>Email Error?</th>
     <th>Deleted</th>
     <th>Send Messages Now</th>
-    <th>Edit</th>
     <th># Comments</th>
   </tr>
 
 <% @quotes.each do |quote| %>
   <tr>
-    <td><%= quote.id %></td>
-    <td><%= link_to 'Show', quote %></td>
+    <td>
+      <b>Root:</b><%= quote.id%><br/>
+      <b>Quotifier:</b><%= quote.quotifier_quote_id %><br/>
+      <b>Speaker:</b><%= quote.speaker_quote_id %><br/>
+      <% quote.quote_witness_users.each do |qwu| %>
+        <b>Witness:</b><%= qwu.witness_quote_id %><br/>
+      <%end%>
+
+    </td>
+    <td>
+        <%= link_to 'Quotifier', quote_path(quote.quotifier_quote_id) %><br/>
+        <%= link_to 'Speaker', quote_path(quote.speaker_quote_id) %></br>
+        <% quote.quote_witness_users.each do |qwu| %>
+          <%= link_to 'Witness', quote_path(qwu.witness_quote_id) %><br/>
+        <%end%>
+    </td>
     <td><%= quote.quote_text %></td>
     <td><%= quote.quote_time %></td>
     <td><%= link_to quote.quote_images.count, admin_quote_quote_images_path(quote) %></td>
-    <td><%= "#{quote.speaker.name} (#{quote.speaker.email},#{quote.speaker.phone})" %></td>
-    <td><%= "#{quote.quotifier.name} (#{quote.quotifier.email},#{quote.quotifier.phone})" %></td>
+    <td>
+      <b>Speaker:</b><%= "#{quote.speaker.name} (#{quote.speaker.email},#{quote.speaker.phone})" %><br/>
+      <b>Quotifier:</b><%= "#{quote.quotifier.name} (#{quote.quotifier.email},#{quote.quotifier.phone})" %><br/>
+      <b>Witnesses:</b><% quote.witnesses.each do |w| %><%="#{w.name} (#{w.email},#{w.phone})"%> <%end%>
+    </td>
+    <td><%= quote.messages_sent_flag %></td>
     <td><%= quote.error_flag %> </td>
     <td><%= quote.deleted %> </td>
     <td><%= link_to 'Send Messages Now', admin_quote_send_messages_now_path(quote) %></td>
-    <td><%= link_to 'Edit', edit_admin_quote_path(quote) %></td>
     <td><%= quote.comments.length %> </td>
   </tr>
 <% end %>

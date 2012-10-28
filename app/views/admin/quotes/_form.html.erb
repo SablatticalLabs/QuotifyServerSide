@@ -56,7 +56,7 @@
   <% end %>
   <%= f.fields_for "witnesses[]", @quote.witnesses.second do |w| %>
     <div class="field">
-    <%= w.label "First Witness Name, Email, and Phone" %><br/>
+    <%= w.label "Second Witness Name, Email, and Phone" %><br/>
     <%= w.text_field :name %>
     <%= w.text_field :email %>
     <%= w.text_field :phone %>
