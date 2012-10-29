@@ -36,7 +36,7 @@ class Quote < ActiveRecord::Base
       unless speaker.email.blank?
         QuoteMailer.speaker_email(self).deliver
       else
-        send_status = send_twillio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{speaker_quote_id}")
+        send_status = QuotifyTwilio.send_twilio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{speaker_quote_id}")
         send_errors << send_status unless send_status == 'Success'
       end
     end
@@ -46,7 +46,7 @@ class Quote < ActiveRecord::Base
       unless witness.email.blank?
         QuoteMailer.witness_email(self, witness, quote_witness).deliver
       else
-       send_status = send_twillio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{quote_witness.witness_quote_id}")
+       send_status = QuotifyTwilio.send_twilio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{quote_witness.witness_quote_id}")
        send_errors << send_status unless send_status == 'Success'
       end
     end
@@ -131,19 +131,7 @@ class Quote < ActiveRecord::Base
   end
 
   private
-  def send_twillio_message(phone, msg)
-    begin
-      TWILIO_CLIENT.account.sms.messages.create(
-          :from => TWILIO_PHONE_NUMBER,
-          :to => phone,
-          :body => msg
-        )    
-    rescue Twilio::REST::RequestError => error_message
-      error_message.to_s
-    else
-      'Success'
-    end
-  end
+
 
   def remove_same_user_listed_more_than_once
     self.witnesses.each do |witness|

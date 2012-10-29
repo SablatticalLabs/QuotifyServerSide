@@ -7,19 +7,14 @@ class Comment < ActiveRecord::Base
 
   def send_messages
     #Message is not sent to the commenter himself, just to everyone else. 
-
     CommentMailer.comment_email(self, self.quote.quotifier).deliver unless self.quote.quotifier == self.user
-
-    send_erorrs = []
 
     #If the person quotified themselves speaking, dont want to send two messages.  Also don't send message to person who left the comment.
     unless self.quote.speaker.same_email_or_phone_as(self.quote.quotifier) or self.quote.speaker == self.user
       unless self.quote.speaker.email.blank?
         CommentMailer.comment_email(self, self.quote.speaker).deliver
       else
-        #TODO: Figure out setup for text messages
-        #send_status = send_twillio_message(self.quote.speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{speaker_quote_id}")
-        #send_errors << send_status unless send_status == 'Success'
+        QuotifyTwilio.send_twilio_message(self.quote.speaker.phone, "There's a new comment on #{self.quote.quotifier.name}'s quote!  Check it out at http://quotify.it/#{self.quote.speaker_quote_id}")
       end
     end
 
@@ -29,9 +24,7 @@ class Comment < ActiveRecord::Base
         unless witness.email.blank?
           CommentMailer.comment_email(self, witness).deliver
         else
-         #TODO: Figure out setup for text messages
-         #send_status = send_twillio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{quote_witness.witness_quote_id}")
-         #send_errors << send_status unless send_status == 'Success'
+          QuotifyTwilio.send_twilio_message(witness.phone, "There's a new comment on #{self.quote.quotifier.name}'s quote!  Check it out at http://quotify.it/#{quote_witness.witness_quote_id}")  
         end
       end
     end
