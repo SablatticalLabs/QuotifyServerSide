@@ -34,10 +34,12 @@
       <span id="speaker">
         <%= @quote.speaker.name %>
       </span>
-      with 
-      <span class="witness quotifier">
-        <%= @quote.quotifier.name %>
-      </span>
+      <% unless @quote.speaker.same_person_as(@quote.quotifier) %>
+        with 
+        <span class="witness quotifier">
+          <%= @quote.quotifier.name %>
+        </span>
+      <% end %>
       <% @quote.witnesses.each do |witness| %> 
          ,<span class="witness">
             <%= "#{witness[:name]}" %>
