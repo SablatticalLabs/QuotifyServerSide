@@ -134,10 +134,8 @@ class Quote < ActiveRecord::Base
 
 
   def remove_same_user_listed_more_than_once
-    self.witnesses.each do |witness|
-      if self.quotifier.same_person_as(witness) || self.speaker.same_person_as(witness)
-        self.witnesses.delete(witness) 
-      end
+    self.witnesses.delete_if do |witness|
+      self.quotifier.same_person_as(witness) || self.speaker.same_person_as(witness)
     end
   end
 
