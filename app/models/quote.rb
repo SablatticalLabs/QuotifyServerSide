@@ -32,7 +32,7 @@ class Quote < ActiveRecord::Base
     send_errors = []
 
     #If the person quotified themselves speaking, dont want to send two messages
-    unless speaker.same_email_or_phone_as(quotifier)
+    unless speaker.same_person_as(quotifier)
       unless speaker.email.blank?
         QuoteMailer.speaker_email(self).deliver
       else
@@ -135,7 +135,7 @@ class Quote < ActiveRecord::Base
 
   def remove_same_user_listed_more_than_once
     self.witnesses.each do |witness|
-      if self.quotifier.same_email_or_phone_as(witness) || self.speaker.same_email_or_phone_as(witness)
+      if self.quotifier.same_person_as(witness) || self.speaker.same_person_as(witness)
         self.witnesses.delete(witness) 
       end
     end

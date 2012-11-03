@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
     CommentMailer.comment_email(self, self.quote.quotifier).deliver unless self.quote.quotifier == self.user
 
     #If the person quotified themselves speaking, dont want to send two messages.  Also don't send message to person who left the comment.
-    unless self.quote.speaker.same_email_or_phone_as(self.quote.quotifier) or self.quote.speaker == self.user
+    unless self.quote.speaker.same_person_as(self.quote.quotifier) or self.quote.speaker == self.user
       unless self.quote.speaker.email.blank?
         CommentMailer.comment_email(self, self.quote.speaker).deliver
       else

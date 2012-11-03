@@ -34,9 +34,10 @@ class User < ActiveRecord::Base
     where "lower(email)= ?", e.downcase
   end
 
-  def same_email_or_phone_as(other)
+  def same_person_as(other)
     ( !self.email.blank? and !other.email.blank? and self.email.downcase == other.email.downcase ) || 
-    ( !self.phone.blank? and !other.phone.blank? and self.phone == other.phone )
+    ( !self.phone.blank? and !other.phone.blank? and self.phone == other.phone ) ||
+    ( !self.name.blank? and !other.name.blank? and self.name == other.name)
   end
   
 end
