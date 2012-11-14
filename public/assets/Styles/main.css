@@ -50,7 +50,7 @@ body {
 
 #main #subhead{
 	background-color: #c8d7de;
-	background: url( 'http://www.quotify.it/Assets/Images/CTAback.png') no-repeat left;
+	background: url( 'http://www.quotify.it/assets/Images/CTAback.png') no-repeat left;
 	color: #7e7e7e;
 	height: 137px;
 	text-align: right;
@@ -88,7 +88,7 @@ body {
 	height: 400px;
 }
 #main #core #why{
-	background: url( 'http://www.quotify.it/Assets/Images/icons.png') no-repeat left;
+	background: url( 'http://www.quotify.it/assets/Images/icons.png') no-repeat left;
 	color: #929292;
 	text-align: left;
 	list-style: none;

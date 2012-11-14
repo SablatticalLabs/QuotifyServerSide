@@ -97,7 +97,7 @@ body {
 	height: 400px;
 }
 #core #why{
-	background: url( '/Assets/Images/icons.png') no-repeat left;
+	background: url( '/assets/Images/icons.png') no-repeat left;
 	color: #a2a2a2;
 	text-align: left;
 	list-style: none;
@@ -149,7 +149,7 @@ body {
 
 #bottom .quotes {
 
-	background: url( '/Assets/Images/lp/quotes.png') no-repeat left;
+	background: url( '/assets/Images/lp/quotes.png') no-repeat left;
 	height: 260px;
 	position: absolute;
 	right: -150px;
