@@ -1,8 +1,0 @@
-
-
-jQuery(function ($) {
-
-	
-
-});
-
