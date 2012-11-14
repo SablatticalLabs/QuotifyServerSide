@@ -36,10 +36,10 @@ body {
 
 #logo{
 	
-	right: 3%;
+	right: 0px;
 	margin-left: -130px;
 	position: absolute;
-	bottom: 60px;
+	bottom: 10px;
 	z-index: 10;
 }
 
@@ -191,6 +191,14 @@ body {
 
 }
 
+#comments .nocomments{
+
+	background: #eee;
+	text-align: center;
+	font-style: italic;
+
+}
+
 #comments li.nocomments {
 
 	border-bottom: none;
@@ -237,4 +245,21 @@ body {
 	font-size: large;
 
 }
+
+#left_bub{
+
+	position: absolute;
+	top:250px;
+	left: 30px;
+}
+
+
+#right_bub{
+
+	position: absolute;
+	top:250px;
+	right: 30px;
+	
+}
+
 
