@@ -16,7 +16,7 @@
 	  		<td  style="padding: 10px 0px 0px; font-family:'Providence';" valign='bottom'>
 	  			<h3 style="color:#626262; font-size:24px; font-weight:normal; "> Your <span style="color:#7fa6b7;">quotify quote</span> has arrived.</h3>
 			    <p>Remember a few weeks ago, when you were with <%=@quote.speaker.name%>?</p>
-			    <p>Well, <i>apparently</i>, <%=@quote.speaker.name%> said something quote-worthy. At <%= distance_of_time_in_words_to_now(@quote.quote_time) %>, to be exact.</p>
+			    <p>Well, <i>apparently</i>, <%=@quote.speaker.name%> said something quote-worthy. <%= distance_of_time_in_words_to_now(@quote.quote_time) %> ago, to be exact.</p>
 			    <p>Memory a little hazy?   Well, you're in luck, because you <i>quotified it</i>, & this quote was just unlocked -- So saddle up, and <a style="color:#6f868e;" href="http://quotify.it/<%=@quote.quotifier_quote_id%>">click here to check it out!</a> </p>
 	  		</td>
 	  	</tr>
