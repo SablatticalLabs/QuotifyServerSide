@@ -33,5 +33,11 @@ class User < ActiveRecord::Base
   def self.find_all_by_email_case_insensitive(e)
     where "lower(email)= ?", e.downcase
   end
+
+  def same_person_as(other)
+    ( !self.email.blank? and !other.email.blank? and self.email.downcase == other.email.downcase ) || 
+    ( !self.phone.blank? and !other.phone.blank? and self.phone == other.phone ) ||
+    ( !self.name.blank? and !other.name.blank? and self.name == other.name)
+  end
   
 end

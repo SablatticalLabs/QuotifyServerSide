@@ -29,7 +29,6 @@
   <div class="field">
     <%= f.fields_for :speaker, @quote.speaker do |s| %>
       <%= s.label "Speaker Name, Email, and Phone" %><br />
-      <!--  <%= f.collection_select(:speaker_user_id, User.all, :id, :name) %>-->
       <%= s.text_field :name %>
       <%= s.text_field :email %>
       <%= s.text_field :phone %>
@@ -38,13 +37,34 @@
   <div class="field">
     <%= f.fields_for :quotifier, @quote.quotifier do |q| %>
       <%= q.label "Quotifier Name, Email, and Phone" %><br/>
-      <!--  <%= f.collection_select(:quotifier_user_id, User.all, :id, :name) %>-->
       <%= q.text_field :name %>
       <%= q.text_field :email %>
       <%= q.text_field :phone %>
     <% end %>
-   
   </div> 
+
+  <% #Need to force Rails to send the witneses as an array.  If we just try to use standard form with nested attributes, it sends something
+     #like "witnesses_attributes"=>{"0"=>{"name"=>"WitnessOne", "email"=>"rwitness@gmail.com", "phone"=>""}}}, which is not the same format as 
+     #the JSON we want it to accept.  We instead want it to look like "witnesses": [{"name": "Rob"}] , so this hack accomplishes that. %>
+  <%= f.fields_for "witnesses[]", @quote.witnesses.first do |w| %>
+    <div class="field">
+    <%= w.label "First Witness Name, Email, and Phone" %><br/>
+    <%= w.text_field :name %>
+    <%= w.text_field :email %>
+    <%= w.text_field :phone %>
+    </div>
+  <% end %>
+  <%= f.fields_for "witnesses[]", @quote.witnesses.second do |w| %>
+    <div class="field">
+    <%= w.label "Second Witness Name, Email, and Phone" %><br/>
+    <%= w.text_field :name %>
+    <%= w.text_field :email %>
+    <%= w.text_field :phone %>
+    </div>
+  <% end %>
+    
+  
+  
   <div class="actions">
     <%= f.submit %>
   </div>

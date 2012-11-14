@@ -6,7 +6,7 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.where(" deleted = 0 or deleted IS NULL ").order("quote_time desc")
+    @quotes = Quote.where(" deleted = ? or deleted IS NULL ", false).order("quote_time desc")
 
     Mpanel.track("Admin Main Page View", { :user=> request.remote_ip })
 
@@ -20,8 +20,9 @@ class Admin::QuotesController < ApplicationController
   # GET /quotes/new.json
   def new
     @quote = Quote.new
-    @quote.quotifier = User.new
-    @quote.speaker = User.new
+    @quote.quotifier = User.new(name: 'Quotifier')
+    @quote.speaker = User.new(name: 'Speaker')
+    2.times {@quote.witnesses << User.new}
 
     Mpanel.track("New Quote Via Admin", { :user=> request.remote_ip })
 

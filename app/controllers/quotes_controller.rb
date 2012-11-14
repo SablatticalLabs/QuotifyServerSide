@@ -21,12 +21,13 @@ class QuotesController < ApplicationController
   # GET /quotes/1 - 
   # GET /quotes/1.json - Used by iPhone
   def show
-    @quote = Quote.find(params[:id])
+    @quote = Quote.find_by_any_id(params[:id])
+
 
     Mpanel.track("View Quote", { :user=> request.remote_ip , :id => params[:id] })
     Rails.logger.warn detect_browser
     respond_to do |format|
-      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1"  ) 
+      if( detect_browser == 'mobile_application' || params[ :test_mobile ] == "1" || 1 ) 
          template = "quotes/show_mobile.html.erb" ;
       else
          template = "quotes/show.html.erb" ;
@@ -38,7 +39,7 @@ class QuotesController < ApplicationController
 
   #Called by a DELETE HTTP call to /quotes/:id
   def destroy
-    quote = Quote.find(params[:id])
+    quote = Quote.find_by_any_id(params[:id])
     if quote.is_deletable? then
       quote.deleted = true
       quote.save
@@ -53,7 +54,22 @@ class QuotesController < ApplicationController
   def history
     users = User.find_all_by_email_case_insensitive(params[:email])
     @quotes = []
-    users.each { |user| @quotes |= user.quotified_quotes.merge(Quote.not_deleted) }
+
+    #Really would like to push this logic of knowing who the accessing user is, into the models, but need to figure that out.
+    #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
+    users.each { |user| 
+      @quotes += user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
+      @quotes += user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+      @quotes += user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+    }
+
+    #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
+    #since the quotifier one has more rights (importantly, to delete the quote)
+    @quotes.each do |q1| 
+      if q1.accessing_user_role == :quotifier
+        @quotes.delete_if{|q2| q1.id == q2.id and q2.accessing_user_role == :speaker }
+      end
+    end 
 
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
@@ -67,16 +83,19 @@ class QuotesController < ApplicationController
   def create
     #TO DO: Right now, just creating a new user every time.  If we stick with this, then really dont need user model at all.  
     #If we do somehow look people up, need to make logic smarter somehow.
-
-
     speaker = User.create(params[:quote][:speaker])  
     quotifier = User.create(params[:quote][:quotifier]) 
-    witnesses = params[:quote][:witnesses].map {|witness| User.create(witness)} if params[:quote][:witnesses] 
+
+    #Load in all the witnesses.  Since the web form is going to have blank entries for these by default, we want to exclude those entries,
+    #so we do so here by taking out any entries where the name is blank.
+    witnesses = params[:quote][:witnesses].map {|witness| User.create(witness) unless witness[:name].blank?} if params[:quote][:witnesses] 
+    witnesses = witnesses.find_all{|w| not w.nil?}
+
     quote_time = params[:quote][:time] || Time.now
 
     #Set the randomly scheduled time to send the email and text messages to some point in the future.  
-    #This is currently only set to go between 6 and 11 days after the message is received, at 2PM EST.
-    messages_send_scheduled_time = Time.parse((Date.today + (rand(5) + 6).days).to_s + " 02:00PM") 
+    #This is currently only set to go between 7 and 14 days after the message is received, at 2PM EST.
+    messages_send_scheduled_time = Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
     messages_send_scheduled_time = Date.yesterday if params[:schedule_in_past_flag] 
 
     Mpanel.track("Create Quote", { :user=> request.remote_ip , :speaker => params[:quote][:speaker], :quotifier => params[:quote][:quotifier] })

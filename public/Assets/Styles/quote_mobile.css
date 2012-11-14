@@ -89,6 +89,8 @@ body {
 	-webkit-box-shadow:  0.3em 0.3em 0.3em  #544e42;
 	-moz-box-shadow: 0.3em 0.3em 0.3em  #544e42;
 	-box-shadow: 0.3em 0.3em 0.3em  #544e42;
+	border-bottom: 1px solid #544e42;;
+	border-right: 1px solid #544e42;;
 	background-color: white;
 	left: 50%;
 	margin-left: -170px;
@@ -109,7 +111,7 @@ body {
 
 #middle {
 
-	height: 340px;
+	height: 380px;
 	background-color: #fff;
 
 }
@@ -134,7 +136,7 @@ body {
 
 	font-size: 40px;
 	height: 42px;
-	width: 750px;
+	width: 700px;
 
 }
 
@@ -183,6 +185,13 @@ body {
 	padding: 10px 50px;
 	text-align: left;
 	width: 840px;
+
+}
+
+#comments li.nocomments {
+
+	border-bottom: none;
+	font-size: 20px;
 
 }
 
