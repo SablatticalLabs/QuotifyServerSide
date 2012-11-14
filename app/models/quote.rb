@@ -18,7 +18,7 @@ class Quote < ActiveRecord::Base
   attr_accessor :accessing_user_obj
  
 
-  scope :ready_to_test_for_dupes, where(" created_at > ? and (deleted != 1 AND deleted is not null) ", 2.hours.ago )
+  scope :ready_to_test_for_dupes, where(" created_at > ? and (deleted = ? OR deleted is null) ", 6.hours.ago , false)
   scope :ready_to_send_message, where("messages_sent_flag = ? and messages_send_scheduled_time < ? and (deleted = ? or deleted is null)", false, Time.now, false)
   scope :not_deleted, where("deleted = ? or deleted is null", false)
 
