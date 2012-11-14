@@ -35,9 +35,9 @@
         <%= @quote.speaker.name %>
       </span>
       <% unless @quote.speaker.same_person_as(@quote.quotifier) %>
-        with  <span class="witness quotifier"><%= @quote.quotifier.name %></span>
+        with <span class="witness quotifier"><%= @quote.quotifier.name %></span>
       <% end %>
-      <% @quote.witnesses.each do |witness| %>,<span class="witness"><%= "#{witness[:name]}" %></span> <% end %>
+      <% @quote.witnesses.each do |witness| %>, <span class="witness"><%= "#{witness[:name]}" %></span> <% end %>
      <span id="time"><%= distance_of_time_in_words_to_now(@quote.quote_time) %> ago</span>
     </div>
   </div>
@@ -68,7 +68,7 @@
           <%= comment.commenter_name %>
         </span>
         <span class="date">
-          <%= comment.created_at %> 
+          <%= distance_of_time_in_words_to_now(comment.created_at) %> ago
         </span>
         <p class="quote">
           <%= comment.comment_text %>
