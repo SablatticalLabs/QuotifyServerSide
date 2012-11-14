@@ -1,5 +1,5 @@
 body {
-	background-color: white;
+	background-color: #fafafa;
 	color: #494949;
 	font: Helvetica;
 	font-family:Arial, Helvetica, sans-serif;
@@ -9,6 +9,9 @@ body {
 
 #container{
 
+	background-color: white;
+	border-left: 10px #fff solid;
+	border-right: 10px #fff solid;
 	margin: 0px auto;
 	width: 1000px;
 
@@ -25,7 +28,7 @@ body {
 
 	height: 425px;
 	padding-top: 10px;
-	background: url(/assets/Images/quote/mobile_gradient.png) no-repeat;
+	background: url(/assets/Images/quote/quote/mobile_gradient.png) no-repeat;
 	background-color: #9ab5c0;
 
 }
