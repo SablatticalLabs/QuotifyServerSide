@@ -45,7 +45,7 @@
             <%= "#{witness[:name]}" %>
          </span>
       <% end %>
-     <!-- at <span id="time"><%= @quote.quote_time %></span> -->
+     at <span id="time"><%= distance_of_time_in_words_to_now(@quote.quote_time) %></span>
     </div>
   </div>
 
