@@ -42,7 +42,7 @@ body {
 
 #quote {
 
-	background: url(/Assets/Images/quote/quotebubble.png) no-repeat;
+	background: url(/assets/Images/quote/quotebubble.png) no-repeat;
 	height: 574px;
 	left: 50%;
 	margin-left: -550px;
@@ -93,7 +93,7 @@ body {
 }
 #top #thumbnail img {
 
-	border: 2px black #544e42;
+	border: 2px black #544e42 !important;
 	max-height: 235px;
 	max-width: 235px;
 
