@@ -2,6 +2,7 @@ class Quote < ActiveRecord::Base
   include UuidHelper  #Use 6-character string as ID
   before_create :set_uuid
   before_create :set_user_quote_ids 
+  before_create :set_messages_scheduled_send_time
   before_save :remove_same_user_listed_more_than_once
   self.primary_key = 'id'
 
@@ -130,6 +131,31 @@ class Quote < ActiveRecord::Base
     end
   end
 
+  
+  #TODO: Break this up into all_quotes_for_user.  Maybe move lines 147-153 back into quote_controller sine they're specific for history view?
+  def self.all_quotes_for_users(users)
+    quotes = []
+
+    #Really would like to push this logic of knowing who the accessing user is into an extension for the association (like quotified_quotes) but need to play with that.
+    #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
+    users.each { |user| 
+      quotes += user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
+      quotes += user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+      quotes += user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+    }
+
+    #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
+    #since the quotifier one has more rights (importantly, to delete the quote)
+    quotes.each do |q1| 
+      if q1.accessing_user_role == :quotifier
+        quotes.delete_if{|q2| q1.id == q2.id and q2.accessing_user_role == :speaker }
+      end
+    end
+
+    return quotes
+  end
+
+
   private
 
 
@@ -137,6 +163,23 @@ class Quote < ActiveRecord::Base
     self.witnesses.delete_if do |witness|
       self.quotifier.same_person_as(witness) || self.speaker.same_person_as(witness)
     end
+  end
+
+  def set_messages_scheduled_send_time
+    #If this was already set manually somewhere else, don't override that
+    return if self.messages_send_scheduled_time
+
+    possible_send_time = Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
+
+    #TODO: Collect list of user_ids for all users involved in current quote, as well as any users where they match via email or phone.
+    #Call Quote.all_quotes_for_users(list) and then get the max scheduled send time from that list
+    #If it is not null and is equal to the current suggested send time, then bump up the suggested end time by a few days for this.
+
+    #Set the randomly scheduled time to send the email and text messages to some point in the future.  
+    #This is currently only set to go between 7 and 14 days after the message is received, at 2PM EST.
+    self.messages_send_scheduled_time = possible_send_time
+
+
   end
 
 end
