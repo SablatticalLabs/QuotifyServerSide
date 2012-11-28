@@ -45,5 +45,8 @@ module Quotify
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #Keep Rails compiled assets away from static 'assets'
+    config.assets.prefix = 'precompiled_assets'
   end
 end

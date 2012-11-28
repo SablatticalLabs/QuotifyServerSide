@@ -6,4 +6,4 @@ tmp/
 public/quote_images/
 *.swp
 sftp-config.json
-
+public/precompiled_assets/
