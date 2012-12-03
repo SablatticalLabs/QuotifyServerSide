@@ -12,15 +12,18 @@
 	  		</td>
 	  		<td  style="padding: 10px 0px 0px; font-family:'Providence';" valign='bottom'>
 	  			<% case @role %>
+
 	  			<% when :quotifier %>
 		  			<h3 style="color:#4a4a4a; font-size:24px; font-weight:normal; "> Everyone's talking about <%=@comment.quote.speaker.name%>'s <span style="color:#7fa6b7;">quote</span>.</h3>
-				    <p style=" font-size:18px;"><%=@comment.commenter_name%> just commented on the quote you entered on Quotify. <a style="color:#7fa6b7; " href="http://quotify.it/<%=@personalized_quote_id%>">Check it out and join the discussion!</a>
+				    <p style=" font-size:18px;"><%=@comment.commenter_name%> has commented on <%=@comment.quote.speaker.name%>'s Quote. <a style="color:#7fa6b7; " href="http://quotify.it/<%=@personalized_quote_id%>"> See what they said, here.</a>
+
 				  <% when :speaker %>
-				 		<h3 style="color:#4a4a4a; font-size:24px; font-weight:normal; "> Everyone's talking about <%=@comment.quote.speaker.name%>'s <span style="color:#7fa6b7;">quote</span>.</h3>
-				    <p style=" font-size:18px;"><%=@comment.commenter_name%> just commented on a quote you spoke on Quotify. <a style="color:#7fa6b7; " href="http://quotify.it/<%=@personalized_quote_id%>">Check it out and join the discussion!</a>
+				 		<h3 style="color:#4a4a4a; font-size:24px; font-weight:normal; "> Everyone's talking about <span style="color:#7fa6b7;">your quote</span>.</h3>
+				    <p style=" font-size:18px;"><%=@comment.commenter_name%> has commented on your Quote.  <a style="color:#7fa6b7; " href="http://quotify.it/<%=@personalized_quote_id%>">See what they said, here.</a>
+
 				  <% when :witness %>
 				 		<h3 style="color:#4a4a4a; font-size:24px; font-weight:normal; "> Everyone's talking about <%=@comment.quote.speaker.name%>'s <span style="color:#7fa6b7;">quote</span>.</h3>
-				    <p style=" font-size:18px;"><%=@comment.commenter_name%> just commented on a quote you were tagged in on Quotify. <a style="color:#7fa6b7; " href="http://quotify.it/<%=@personalized_quote_id%>">Check it out and join the discussion!</a>
+				    <p style=" font-size:18px;"><%=@comment.commenter_name%> has commented on <%=@comment.quote.speaker.name%>'s Quote. <a style="color:#7fa6b7; " href="http://quotify.it/<%=@personalized_quote_id%>"> See what they said, here.</a>
 				  <% end %>
 					</p>
 	  		</td>
@@ -39,7 +42,7 @@
 
 	  </div>
   	<p style="padding: 10px 0px; font-family:'Providence'; font-size: 10px; width:700px;  margin: 0px auto; text-align: left;">
-  		You are receiving this email because <%= @comment.quote.quotifier.name %> tagged you in a quote.  We won't do it again unless they tag you again, but, you can <a style="color:#6f868e;" href="http://quotify.it/?unsubscribe">click here to unsubscribe</a>
+  		You are receiving this email because <%= @comment.quote.quotifier.name %> tagged you in a quote.  We won't do it again unless they tag you again, but, you can <i> unsubscribe </i> below.
   	</p>
   </body>
 </html>
