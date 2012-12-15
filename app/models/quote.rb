@@ -136,12 +136,10 @@ class Quote < ActiveRecord::Base
   def self.all_quotes_for_users(users)
     quotes = []
 
-    #Really would like to push this logic of knowing who the accessing user is into an extension for the association (like quotified_quotes) but need to play with that.
-    #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
     users.each { |user| 
-      quotes += user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
-      quotes += user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
-      quotes += user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
+      quotes += user.quotified_quotes.with_quote_accessor_set
+      quotes += user.spoken_quotes.with_quote_accessor_set
+      quotes += user.witnessed_quotes.with_quote_accessor_set
     }
 
     #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
