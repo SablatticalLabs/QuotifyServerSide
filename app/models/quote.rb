@@ -130,9 +130,7 @@ class Quote < ActiveRecord::Base
     else witnesses.each {|witness| if witness == accessing_user_obj then return :witness end}
     end
   end
-
   
-  #TODO: Break this up into all_quotes_for_user.  Maybe move lines 147-153 back into quote_controller sine they're specific for history view?
   def self.all_quotes_for_users(users)
     quotes = []
 
@@ -167,16 +165,20 @@ class Quote < ActiveRecord::Base
     #If this was already set manually somewhere else, don't override that
     return if self.messages_send_scheduled_time
 
-    possible_send_time = Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
-
-    #TODO: Collect list of user_ids for all users involved in current quote, as well as any users where they match via email or phone.
-    #Call Quote.all_quotes_for_users(list) and then get the max scheduled send time from that list
-    #If it is not null and is equal to the current suggested send time, then bump up the suggested end time by a few days for this.
-
-    #Set the randomly scheduled time to send the email and text messages to some point in the future.  
-    #This is currently only set to go between 7 and 14 days after the message is received, at 2PM EST.
-    self.messages_send_scheduled_time = possible_send_time
-
+    #Find all users involved in the quote and see if they have any messages that are pending being sent out
+    all_involved_users = []
+    all_involved_users |= self.quotifier.find_all_similar_users 
+    all_involved_users |= self.speaker.find_all_similar_users
+    self.witnesses.each{|w| all_involved_users |= w.find_all_similar_users}
+    all_quotes_for_involved_users = Quote.all_quotes_for_users(all_involved_users)
+    max_send_time_for_all_other_quotes = all_quotes_for_involved_users.find_all{|q| q.messages_sent_flag == false}.max{|q| q.messages_send_scheduled_time}
+    self.messages_send_scheduled_time = 
+      if max_send_time_for_all_other_quotes 
+        #If there are already pending quotes, make this one get sent even a little later
+        max_send_time_for_all_other_quotes + (rand(3) + 1).days
+      else
+        Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
+      end
 
   end
 
