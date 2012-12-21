@@ -171,11 +171,11 @@ class Quote < ActiveRecord::Base
     all_involved_users |= self.speaker.find_all_similar_users
     self.witnesses.each{|w| all_involved_users |= w.find_all_similar_users}
     all_quotes_for_involved_users = Quote.all_quotes_for_users(all_involved_users)
-    max_send_time_for_all_other_quotes = all_quotes_for_involved_users.find_all{|q| q.messages_sent_flag == false}.max{|q| q.messages_send_scheduled_time}
+    max_scheduled_quote = all_quotes_for_involved_users.find_all{|q| q.messages_sent_flag == false}.max_by{|q| q.messages_send_scheduled_time}
     self.messages_send_scheduled_time = 
-      if max_send_time_for_all_other_quotes 
+      if max_scheduled_quote 
         #If there are already pending quotes, make this one get sent even a little later
-        max_send_time_for_all_other_quotes + (rand(3) + 1).days
+        max_scheduled_quote.messages_send_scheduled_time + (rand(4) + 3).days
       else
         Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
       end
