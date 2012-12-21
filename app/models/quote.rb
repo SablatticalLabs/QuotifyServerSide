@@ -140,6 +140,9 @@ class Quote < ActiveRecord::Base
       quotes += user.witnessed_quotes.with_quote_accessor_set
     }
 
+    #Need better way to set default globally to not get deleted quotes, but this works for now
+    quotes.delete_if{|q| q.deleted == true}
+
     #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
     #since the quotifier one has more rights (importantly, to delete the quote)
     quotes.each do |q1| 
