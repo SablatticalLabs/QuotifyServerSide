@@ -1,8 +1,16 @@
+module SetQuoteAccesorExtension
+  #When a user accesses a quote, we sometimes want to set the 'accesing_user_obj' field in the quote so it knows how it was found
+  #because, for example, if the person is the quotiifer of the quote, he has additional abilities that others do not. 
+  def with_quote_accessor_set
+      self.each{|r| r.accessing_user_obj = proxy_association.owner}
+  end 
+end
+
 class User < ActiveRecord::Base
-  has_many :spoken_quotes, :class_name => "Quote", :foreign_key => :speaker_user_id
-  has_many :quotified_quotes, :class_name => "Quote", :foreign_key => :quotifier_user_id
+  has_many :spoken_quotes, :class_name => "Quote", :foreign_key => :speaker_user_id, :extend => SetQuoteAccesorExtension
+  has_many :quotified_quotes, :class_name => "Quote", :foreign_key => :quotifier_user_id, :extend => SetQuoteAccesorExtension
   has_many :quote_witness_users
-  has_many :witnessed_quotes, :through => :quote_witness_users, :source => :quote
+  has_many :witnessed_quotes, :through => :quote_witness_users, :source => :quote, :extend => SetQuoteAccesorExtension  
 
   validate :must_have_email_or_phone
 
@@ -32,6 +40,13 @@ class User < ActiveRecord::Base
 
   def self.find_all_by_email_case_insensitive(e)
     where "lower(email)= ?", e.downcase
+  end
+
+  def find_all_similar_users
+    similar_users = []
+    similar_users |= User.find_all_by_email_case_insensitive(self.email) unless self.email.blank?
+    similar_users |= User.find_all_by_phone(self.phone) unless self.phone.blank?
+    similar_users
   end
 
   def same_person_as(other)

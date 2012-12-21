@@ -9,6 +9,7 @@
     <th>Images</th>
     <th>Users</th>
     <th>Hatch Messages Sent?</th>
+    <th>Hatch Messages Send Time</th>
     <th>Twilio Error?</th>
     <th>Deleted</th>
     <th>Send Messages Now</th>
@@ -42,6 +43,7 @@
       <b>Witnesses:</b><% quote.witnesses.each do |w| %><%="#{w.name} (#{w.email},#{w.phone})"%> <%end%>
     </td>
     <td><%= quote.messages_sent_flag %></td>
+    <td><%= quote.messages_send_scheduled_time %></td>
     <td><%= quote.error_flag %> </td>
     <td><%= quote.deleted %> </td>
     <td><%= link_to 'Send Messages Now', admin_quote_send_messages_now_path(quote) %></td>

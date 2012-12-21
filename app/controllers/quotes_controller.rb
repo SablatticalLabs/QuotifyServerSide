@@ -53,23 +53,7 @@ class QuotesController < ApplicationController
   # GET Called from iPhone to get history for a given email address
   def history
     users = User.find_all_by_email_case_insensitive(params[:email])
-    @quotes = []
-
-    #Really would like to push this logic of knowing who the accessing user is, into the models, but need to figure that out.
-    #We would need to somehow override the association methods like quotified.quotes to automatically set the user in the Quote.
-    users.each { |user| 
-      @quotes += user.quotified_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}  #Allow quote deletion when accessing the quote as the quotifier
-      @quotes += user.spoken_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
-      @quotes += user.witnessed_quotes.merge(Quote.not_deleted).tap{|q| q.map{|r| r.accessing_user_obj = user}}
-    }
-
-    #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
-    #since the quotifier one has more rights (importantly, to delete the quote)
-    @quotes.each do |q1| 
-      if q1.accessing_user_role == :quotifier
-        @quotes.delete_if{|q2| q1.id == q2.id and q2.accessing_user_role == :speaker }
-      end
-    end 
+    @quotes = Quote.all_quotes_for_users(users)
 
     Mpanel.track("View History", { :user=> request.remote_ip , :email => params[:email] })
 
@@ -93,9 +77,7 @@ class QuotesController < ApplicationController
 
     quote_time = params[:quote][:time] || Time.now
 
-    #Set the randomly scheduled time to send the email and text messages to some point in the future.  
-    #This is currently only set to go between 7 and 14 days after the message is received, at 2PM EST.
-    messages_send_scheduled_time = Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
+    #Set the scheduled time to a fixed date in the past if this admin parameter is set
     messages_send_scheduled_time = Date.yesterday if params[:schedule_in_past_flag] 
 
     Mpanel.track("Create Quote", { :user=> request.remote_ip , :speaker => params[:quote][:speaker], :quotifier => params[:quote][:quotifier] })

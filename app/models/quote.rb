@@ -2,6 +2,7 @@ class Quote < ActiveRecord::Base
   include UuidHelper  #Use 6-character string as ID
   before_create :set_uuid
   before_create :set_user_quote_ids 
+  before_create :set_messages_scheduled_send_time
   before_save :remove_same_user_listed_more_than_once
   self.primary_key = 'id'
 
@@ -129,6 +130,27 @@ class Quote < ActiveRecord::Base
     else witnesses.each {|witness| if witness == accessing_user_obj then return :witness end}
     end
   end
+  
+  def self.all_quotes_for_users(users)
+    quotes = []
+
+    users.each { |user| 
+      quotes += user.quotified_quotes.with_quote_accessor_set
+      quotes += user.spoken_quotes.with_quote_accessor_set
+      quotes += user.witnessed_quotes.with_quote_accessor_set
+    }
+
+    #If the same quote is in there twice, its beacuse it was a case where the person quotified themselves as a speaker.  In that case get rid of the speaker one
+    #since the quotifier one has more rights (importantly, to delete the quote)
+    quotes.each do |q1| 
+      if q1.accessing_user_role == :quotifier
+        quotes.delete_if{|q2| q1.id == q2.id and q2.accessing_user_role == :speaker }
+      end
+    end
+
+    return quotes
+  end
+
 
   private
 
@@ -137,6 +159,27 @@ class Quote < ActiveRecord::Base
     self.witnesses.delete_if do |witness|
       self.quotifier.same_person_as(witness) || self.speaker.same_person_as(witness)
     end
+  end
+
+  def set_messages_scheduled_send_time
+    #If this was already set manually somewhere else, don't override that
+    return if self.messages_send_scheduled_time
+
+    #Find all users involved in the quote and see if they have any messages that are pending being sent out
+    all_involved_users = []
+    all_involved_users |= self.quotifier.find_all_similar_users 
+    all_involved_users |= self.speaker.find_all_similar_users
+    self.witnesses.each{|w| all_involved_users |= w.find_all_similar_users}
+    all_quotes_for_involved_users = Quote.all_quotes_for_users(all_involved_users)
+    max_scheduled_quote = all_quotes_for_involved_users.find_all{|q| q.messages_sent_flag == false}.max_by{|q| q.messages_send_scheduled_time}
+    self.messages_send_scheduled_time = 
+      if max_scheduled_quote 
+        #If there are already pending quotes, make this one get sent even a little later
+        max_scheduled_quote.messages_send_scheduled_time + (rand(4) + 3).days
+      else
+        Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
+      end
+
   end
 
 end
