@@ -29,13 +29,22 @@ class Quote < ActiveRecord::Base
 
   #Send out email, or if we only have phone number, send text message, to quotifier, speaker, and witnesses
   def send_messages
-    QuoteMailer.quotifier_email(self).deliver
     send_errors = []
+
+    begin
+      QuoteMailer.quotifier_email(self).deliver
+    rescue Exception => e
+      send_errors << e.message + "on #{self.quotifier.email}"
+    end
 
     #If the person quotified themselves speaking, dont want to send two messages
     unless speaker.same_person_as(quotifier)
       unless speaker.email.blank?
-        QuoteMailer.speaker_email(self).deliver
+        begin
+          QuoteMailer.speaker_email(self).deliver
+        rescue Exception => e
+          send_errors << e.message + "on #{self.speaker.email}"
+        end
       else
         send_status = QuotifyTwilio.send_twilio_message(speaker.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{speaker_quote_id}")
         send_errors << send_status unless send_status == 'Success'
@@ -45,7 +54,11 @@ class Quote < ActiveRecord::Base
     quote_witness_users.each do |quote_witness|
       witness  = quote_witness.witness
       unless witness.email.blank?
-        QuoteMailer.witness_email(self, witness, quote_witness).deliver
+        begin
+          QuoteMailer.witness_email(self, witness, quote_witness).deliver
+        rescue Exception => e
+          send_errors << e.message + "on #{witness.email}"
+        end
       else
        send_status = QuotifyTwilio.send_twilio_message(witness.phone, "#{quotifier.name} Quotified you!  Check it out at http://quotify.it/#{quote_witness.witness_quote_id}")
        send_errors << send_status unless send_status == 'Success'

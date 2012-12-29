@@ -10,9 +10,10 @@
     <th>Users</th>
     <th>Hatch Messages Sent?</th>
     <th>Hatch Messages Send Time</th>
-    <th>Twilio Error?</th>
+    <th>Msg Send Err?</th>
+    <th>Msg Send Err Txt</th>
     <th>Deleted</th>
-    <th>Send Messages Now</th>
+    <th>Send Hatch Msg</th>
     <th># Comments</th>
   </tr>
 
@@ -45,6 +46,7 @@
     <td><%= quote.messages_sent_flag %></td>
     <td><%= quote.messages_send_scheduled_time %></td>
     <td><%= quote.error_flag %> </td>
+    <td><%= quote.error_string %> </td>
     <td><%= quote.deleted %> </td>
     <td><%= link_to 'Send Messages Now', admin_quote_send_messages_now_path(quote) %></td>
     <td><%= quote.comments.length %> </td>
