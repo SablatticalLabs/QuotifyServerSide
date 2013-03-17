@@ -8,6 +8,7 @@
     <th>Quote time</th>
     <th>Images</th>
     <th>Users</th>
+    <th>Mode</th>
     <th>Hatch Messages Sent?</th>
     <th>Hatch Messages Send Time</th>
     <th>Msg Send Err?</th>
@@ -43,6 +44,7 @@
       <b>Quotifier:</b><%= "#{quote.quotifier.name} (#{quote.quotifier.email},#{quote.quotifier.phone})" %><br/>
       <b>Witnesses:</b><% quote.witnesses.each do |w| %><%="#{w.name} (#{w.email},#{w.phone})"%> <%end%>
     </td>
+    <td><%= quote.mode %></td>
     <td><%= quote.messages_sent_flag %></td>
     <td><%= quote.messages_send_scheduled_time %></td>
     <td><%= quote.error_flag %> </td>

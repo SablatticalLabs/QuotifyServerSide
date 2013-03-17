@@ -167,6 +167,11 @@ class Quote < ActiveRecord::Base
     return quotes
   end
 
+  def mode
+    #If we don't have a mode already set, assume we're using nostalgia mode as default 
+    super || 'nostalgia'  
+  end
+
 
   private
 
@@ -181,20 +186,27 @@ class Quote < ActiveRecord::Base
     #If this was already set manually somewhere else, don't override that
     return if self.messages_send_scheduled_time
 
-    #Find all users involved in the quote and see if they have any messages that are pending being sent out
-    all_involved_users = []
-    all_involved_users |= self.quotifier.find_all_similar_users 
-    all_involved_users |= self.speaker.find_all_similar_users
-    self.witnesses.each{|w| all_involved_users |= w.find_all_similar_users}
-    all_quotes_for_involved_users = Quote.all_quotes_for_users(all_involved_users)
-    max_scheduled_quote = all_quotes_for_involved_users.find_all{|q| q.messages_sent_flag == false}.max_by{|q| q.messages_send_scheduled_time}
-    self.messages_send_scheduled_time = 
-      if max_scheduled_quote 
-        #If there are already pending quotes, make this one get sent even a little later
-        max_scheduled_quote.messages_send_scheduled_time + (rand(4) + 3).days
-      else
-        Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
-      end
+    if self.mode == "quiet" 
+      self.messages_send_scheduled_time = nil
+    elsif self.mode == "morning_after"
+      self.messages_send_scheduled_time = Time.parse((Date.today + 1.days).to_s + " 02:00PM")
+    else  #Nostalgia mode, the default
+      #Find all users involved in the quote and see if they have any messages that are pending being sent out
+      #to avoid two nostalgia mode quotes being sent in the same day
+      all_involved_users = []
+      all_involved_users |= self.quotifier.find_all_similar_users 
+      all_involved_users |= self.speaker.find_all_similar_users
+      self.witnesses.each{|w| all_involved_users |= w.find_all_similar_users}
+      all_quotes_for_involved_users = Quote.all_quotes_for_users(all_involved_users)
+      max_scheduled_quote = all_quotes_for_involved_users.find_all{|q| q.messages_sent_flag == false}.max_by{|q| q.messages_send_scheduled_time}
+      self.messages_send_scheduled_time = 
+        if max_scheduled_quote 
+          #If there are already pending quotes, make this one get sent even a little later
+          max_scheduled_quote.messages_send_scheduled_time + (rand(4) + 3).days
+        else
+          Time.parse((Date.today + (rand(7) + 7).days).to_s + " 02:00PM") 
+        end
+     end
 
   end
 

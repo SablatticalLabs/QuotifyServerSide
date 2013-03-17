@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017034553) do
+ActiveRecord::Schema.define(:version => 20130317032452) do
 
   create_table "comments", :force => true do |t|
     t.string   "comment_text",    :null => false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20121017034553) do
     t.string   "quotifier_quote_id"
     t.string   "speaker_quote_id"
     t.boolean  "deleted"
+    t.string   "mode"
   end
 
   create_table "users", :force => true do |t|

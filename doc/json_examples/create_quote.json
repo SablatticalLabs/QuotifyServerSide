@@ -1,0 +1,14 @@
+http POST localhost:3000/quotes/ <<END
+{
+ "quote":
+   {
+   "quote_text":"How about morning after mode?",
+   "quotifier":{"name":"Max Rosenblatt","email":"maxrosenblatt@gmail.com"},
+   "speaker":{"name":"John Smith","email":"john@smith.com"},
+   "time":"2013-03-14 08:20",
+   "witnesses":[],
+   "location":"Ellis St, San Francisco",
+   "mode":"morning_after"
+   }
+}
+END

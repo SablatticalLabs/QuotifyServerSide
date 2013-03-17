@@ -63,7 +63,10 @@
     </div>
   <% end %>
     
-  
+  <div class="field">
+    <%= f.label :mode %>
+    <%= f.select :mode, ['nostalgia', 'morning_after', 'quiet'] %>
+  </div>
   
   <div class="actions">
     <%= f.submit %>

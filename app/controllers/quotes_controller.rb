@@ -84,9 +84,16 @@ class QuotesController < ApplicationController
 
     messages_sent_flag = params[:quote][:messages_sent_flag] || false
 
-    @quote = Quote.new(:quote_text => params[:quote][:quote_text], :quote_time => quote_time, :speaker => speaker, :quotifier => quotifier, 
-                       :witnesses => (witnesses || []),:location => params[:quote][:location], :coordinate=>params[:quote][:coordinate],
-                       :messages_send_scheduled_time => messages_send_scheduled_time , :messages_sent_flag => messages_sent_flag)
+    @quote = Quote.new(:quote_text => params[:quote][:quote_text], 
+                       :quote_time => quote_time, 
+                       :speaker => speaker, 
+                       :quotifier => quotifier, 
+                       :witnesses => (witnesses || []),
+                       :location => params[:quote][:location], 
+                       :coordinate=>params[:quote][:coordinate],
+                       :messages_send_scheduled_time => messages_send_scheduled_time , 
+                       :messages_sent_flag => messages_sent_flag,
+                       :mode => params[:quote][:mode])
 
     flash[:notice] = 'Quote was successfully created' if @quote.save
 
