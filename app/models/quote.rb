@@ -27,6 +27,17 @@ class Quote < ActiveRecord::Base
     if (self.created_at + 1.day > Time.now) && accessing_user_role == :quotifier then true else false end
   end
 
+  def is_locked?
+    #Whether or not the user can see the quote depends on the mode.  
+    #In nostalgia or morning after mode you need to wait until the quote hatches before you can see it.
+    #In quiet mode the quote is never locked and you can see it right away
+    case self.mode 
+    when 'nostalgia' then !(self.messages_sent_flag)
+    when 'morning_after' then !(self.messages_sent_flag)
+    when 'quiet' then false  
+    end
+  end
+
   #Send out email, or if we only have phone number, send text message, to quotifier, speaker, and witnesses
   def send_messages
     send_errors = []
@@ -88,7 +99,7 @@ class Quote < ActiveRecord::Base
 
   #The JSON returned for a quote should include details on the speaker 
   def as_json(options={})
-    super(:include => [:speaker], :methods => [:is_deletable?, :personalized_quote_id])
+    super(:include => [:speaker], :methods => [:is_deletable?, :personalized_quote_id, :is_locked?])
   end
 
   def set_user_quote_ids

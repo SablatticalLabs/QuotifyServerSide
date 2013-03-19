@@ -10,6 +10,7 @@
     <th>Users</th>
     <th>Mode</th>
     <th>Hatch Messages Sent?</th>
+    <th>Locked?</th>
     <th>Hatch Messages Send Time</th>
     <th>Msg Send Err?</th>
     <th>Msg Send Err Txt</th>
@@ -46,6 +47,7 @@
     </td>
     <td><%= quote.mode %></td>
     <td><%= quote.messages_sent_flag %></td>
+    <td><%= quote.is_locked? %></td>
     <td><%= quote.messages_send_scheduled_time %></td>
     <td><%= quote.error_flag %> </td>
     <td><%= quote.error_string %> </td>
