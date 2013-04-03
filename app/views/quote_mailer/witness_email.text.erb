@@ -1,5 +1,3 @@
-Remember a few weeks ago, when you were with <%=@quote.quotifier.name%> and <%=@quote.speaker.name%>?
+<%=@quote.speaker.name%> has shared a Quote with you, something <%= @quote.quotifier.name %> said.  
 
-Well, apparently, <%=@quote.speaker.name%> said something quote-worthy.
-
-Memory a little hazy?   Well, you're in luck, because <%= @quote.quotifier.name %> quotified it, & this quote was just unlocked -- So saddle up, and go to http://quotify.it/<%=@quote_witness.witness_quote_id%> to check it out!
+So take a trip down memory lane, to <%= distance_of_time_in_words_to_now(@quote.quote_time) %> ago, and go here to check out your quote: http://quotify.it/<%=@quote_witness.witness_quote_id%>
