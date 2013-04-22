@@ -99,7 +99,7 @@ class Quote < ActiveRecord::Base
 
   #The JSON returned for a quote should include details on the speaker 
   def as_json(options={})
-    super(:include => [:speaker], :methods => [:is_deletable?, :personalized_quote_id, :is_locked?])
+    super(:include => [:speaker, :witnesses], :methods => [:is_deletable?, :personalized_quote_id, :is_locked?])
   end
 
   def set_user_quote_ids
